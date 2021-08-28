@@ -1,4 +1,4 @@
-package com.company.domain;
+package Task3.com.company.domain;
 
 public class Tarif {
     private String name;

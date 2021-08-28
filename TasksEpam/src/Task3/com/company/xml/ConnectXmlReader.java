@@ -1,8 +1,8 @@
-package com.company.xml;
+package Task3.com.company.xml;
 
-import com.company.domain.CallPrice;
-import com.company.domain.Parameters;
-import com.company.domain.Tarif;
+import Task3.com.company.domain.CallPrice;
+import Task3.com.company.domain.Parameters;
+import Task3.com.company.domain.Tarif;
 
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamConstants;

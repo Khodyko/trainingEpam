@@ -1,14 +1,4 @@
-package com.company.xml;
-
-import com.company.domain.Tarif;
-
-import javax.xml.stream.XMLOutputFactory;
-import javax.xml.stream.XMLStreamException;
-import javax.xml.stream.XMLStreamReader;
-import javax.xml.stream.XMLStreamWriter;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.util.List;
+package Task3.com.company.xml;
 
 public class connectXmlWriter {
 //    public void write(List<Tarif> tarifs, String fileName) throws FileNotFoundException, XMLStreamException {

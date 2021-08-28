@@ -1,4 +1,4 @@
-package com.company.xml;
+package Task3.com.company.xml;
 
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
@@ -13,7 +13,7 @@ import java.io.File;
 import java.io.IOException;
 
 public class ConnectXmlValidator extends DefaultHandler {
-    public static final String SCHEMA_FILE_NAME = "connect.xsd";
+    public static final String SCHEMA_FILE_NAME = "Task3/resources/connect.xsd";
     private StringBuilder error = new StringBuilder();
     private String fileName;
 
