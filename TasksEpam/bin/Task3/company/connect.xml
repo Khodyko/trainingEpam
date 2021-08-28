@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<tarifs xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.example.org/connect" xsi:schemaLocation="http://www.example.org/connect  connect.xsd">
+    <tarif>
+        <name>up</name>
+        <operatorName>mts</operatorName>
+        <payRoll>99</payRoll>
+
+        <callPrice>
+            <inNetCallCost>12</inNetCallCost>
+            <outNetCallCost>12</outNetCallCost>
+            <homePhoneCallCost>12</homePhoneCallCost>
+        </callPrice>
+
+        <smsPrice>1</smsPrice>
+        <parameters>
+            <lovelyNumber>+375292320038</lovelyNumber>
+            <tarificationTime>12</tarificationTime>
+            <comingPay>140</comingPay>
+        </parameters>
+    </tarif>
+    <tarif>
+        <name>plus</name>
+        <operatorName>life</operatorName>
+        <payRoll>99</payRoll>
+
+        <callPrice>
+            <inNetCallCost>12</inNetCallCost>
+            <outNetCallCost>12</outNetCallCost>
+            <homePhoneCallCost>12</homePhoneCallCost>
+        </callPrice>
+
+        <smsPrice>1</smsPrice>
+        <parameters>
+            <lovelyNumber>+375292320038</lovelyNumber>
+            <tarificationTime>12</tarificationTime>
+            <comingPay>140</comingPay>
+        </parameters>
+    </tarif>
+    <tarif>
+        <name>gogogo</name>
+        <operatorName>velcom</operatorName>
+        <payRoll>99</payRoll>
+
+        <callPrice>
+            <inNetCallCost>12</inNetCallCost>
+            <outNetCallCost>12</outNetCallCost>
+            <homePhoneCallCost>12</homePhoneCallCost>
+        </callPrice>
+
+        <smsPrice>1</smsPrice>
+        <parameters>
+            <lovelyNumber>+375292320038</lovelyNumber>
+            <tarificationTime>12</tarificationTime>
+            <comingPay>140</comingPay>
+        </parameters>
+    </tarif>
+</tarifs>
