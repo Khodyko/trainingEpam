@@ -1,0 +1,16 @@
+Task: Домашние электроприборы. Определить иерархию электроприборов. Включить некоторые в розетку. Рассчитать потребляемую мощность Провести сортировку приборов в квартире на основе мощности. Найти прибор в квартире, соответствующий заданному диапазону параметров.
+
+Electric Home Devices is application, that use filters for filtration Electric Devices.There are:
+
+Amperage Filter
+Name Filter
+SystemSupply Filter
+Voltage Filter
+Application can:
+
+Output different information about filters and Devices;
+Calculate Power of Devices;
+Do power-sort of Devices;
+Filtrate devices.
+Surprice method is picture of devices.
+Realised simple (in my opinion) for using and programming of new code console panel. Used singleton, command patterns.
