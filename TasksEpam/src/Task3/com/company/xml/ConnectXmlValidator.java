@@ -13,7 +13,7 @@ import java.io.File;
 import java.io.IOException;
 
 public class ConnectXmlValidator extends DefaultHandler {
-    public static final String SCHEMA_FILE_NAME = "Task3/resources/connect.xsd";
+    public static final String SCHEMA_FILE_NAME = "src/Task3/resources/connect.xsd";
     private StringBuilder error = new StringBuilder();
     private String fileName;
 
@@ -26,24 +26,28 @@ public class ConnectXmlValidator extends DefaultHandler {
 
     public ConnectXmlValidator(String fileName) {
         this.fileName = fileName;
+        
     }
 
     @Override
     public void warning(SAXParseException e) throws SAXException {
         error.append("WARNING: ");
         error.append(getErrorInfo(e));
+        e.printStackTrace();
     }
 
     @Override
     public void error(SAXParseException e) throws SAXException {
         error.append("ERROR: ");
         error.append(getErrorInfo(e));
+        e.printStackTrace();
     }
 
     @Override
     public void fatalError(SAXParseException e) throws SAXException {
         error.append("FATALERROR: ");
         error.append(getErrorInfo(e));
+        e.printStackTrace();
     }
 
     public String getError() {
@@ -63,6 +67,7 @@ public class ConnectXmlValidator extends DefaultHandler {
             validator.validate(new StreamSource(fileName));
             return getError() == null;
         } catch (SAXException e) {
+        	 e.printStackTrace();
             return false;
         }
     }

@@ -67,6 +67,7 @@ public class Tarif {
                 ", payRoll=" + payRoll +
                 ", callPrice=" + callPrice +
                 ", smsPrice=" + smsPrice +
+                ", lovelynumber= "+ parameters.getLovelyNumber()+
                 '}';
     }
 }

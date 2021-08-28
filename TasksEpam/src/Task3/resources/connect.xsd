@@ -9,7 +9,7 @@
                         <sequence>
                             <element name="name" type="string"/>
                             <element name="operatorName" type="string"/>
-                            <element name="payRoll" type="int">
+                            <element name="payRoll" >
                                 <simpleType>
                                     <restriction base="int">
                                         <minInclusive value="0"/>
@@ -21,7 +21,7 @@
                             <element name="callPrice" >
                                 <complexType>
                                     <sequence>
-                                        <element name="inNetCallCost" type="int">
+                                        <element name="inNetCallCost" >
                                             <simpleType>
                                                 <restriction base="int">
                                                     <minInclusive value="0"/>
@@ -29,7 +29,7 @@
                                                 </restriction>
                                             </simpleType>
                                         </element>
-                                        <element name="outNetCallCost" type="int">
+                                        <element name="outNetCallCost">
                                             <simpleType>
                                                 <restriction base="int">
                                                     <minInclusive value="0"/>
@@ -37,7 +37,7 @@
                                                 </restriction>
                                             </simpleType>
                                         </element>
-                                        <element name="homePhoneCallCost" type="int">
+                                        <element name="homePhoneCallCost">
                                             <simpleType>
                                                 <restriction base="int">
                                                     <minInclusive value="0"/>
@@ -68,7 +68,7 @@
                                                 </restriction>
                                             </simpleType>
                                         </element>
-                                        <element name="tarificationTime" type="int">
+                                        <element name="tarificationTime" >
                                             <simpleType>
                                                 <restriction base="int">
                                                     <enumeration value="12"/>
