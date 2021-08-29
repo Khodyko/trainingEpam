@@ -5,37 +5,39 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class InsertManager implements AutoCloseable {
-    BufferedReader bufferedReader=new BufferedReader(new InputStreamReader(System.in));
-    private static InsertManager instance;
+	BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+	private static InsertManager instance;
 
+	private InsertManager() {
+	}
 
-    private InsertManager() {}
-    public static InsertManager getInstance() {
-        if (instance == null) {
-            instance = new InsertManager();
-        }
-        return instance;
-    }
+	public static InsertManager getInstance() {
+		if (instance == null) {
+			instance = new InsertManager();
+		}
+		return instance;
+	}
 
+	public String InsertAndTrim() {
+		String message;
+		try {
+			message = bufferedReader.readLine();
+			if (message == null || message.equals("")) {
+			} // need Exception!!!!!!!
+		} catch (IOException e) {
+			System.out.println("exception1");
+			message = "Error! It's an error of insert, please restart the application"; // need to go to the last
+																						// step?!!!!
+			return null;
+		}
 
-    public String InsertAndTrim(){
-        String message;
-        try{
-            message=bufferedReader.readLine();
-            if(message==null || message.equals("")){}// need Exception!!!!!!!
-        } catch (IOException e) {
-            System.out.println("exception1");
-            message="Error! It's an error of insert, please restart the application"; //need to go to the last step?!!!!
-            return null;
-        }
+		message = message.trim();
 
-        message=message.trim();
+		return message;
+	}
 
-        return message;
-    }
-
-    @Override
-    public void close() throws Exception {
-        bufferedReader.close();
-    }
+	@Override
+	public void close() throws Exception {
+		bufferedReader.close();
+	}
 }

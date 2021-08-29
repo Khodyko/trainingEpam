@@ -10,72 +10,72 @@ import java.util.List;
 
 public class Main {
 
-    public static void main(String[] args) {
-        List<String> sentences = new ArrayList<>();
+	public static void main(String[] args) {
+		List<String> sentences = new ArrayList<>();
 
-        List<String> wordsFirstSentence = new ArrayList<>();
+		List<String> wordsFirstSentence = new ArrayList<>();
 
-        ArrayList<String> fullWordsList = new ArrayList<>();
+		ArrayList<String> fullWordsList = new ArrayList<>();
 
-        String fullText = "";
+		String fullText = "";
 
-        Integer maxCountWordNmbr = 0;
+		Integer maxCountWordNmbr = 0;
 
-        String maxWord="";
+		String maxWord = "";
 
-        String inputFileName = "d://text2.txt";//put name of File here
+		String inputFileName = "d://text2.txt";// put name of File here
 
-        try {
+		try {
 
-            BufferedReader bu = new BufferedReader(new FileReader(inputFileName));
-            String buffer;
-            while ((buffer = bu.readLine()) != null) {
-                fullText = fullText + buffer;
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        System.out.println("fulltext: "+ fullText);
-        sentences = Arrays.asList(fullText.split("[.!?]\\s*"));
+			BufferedReader bu = new BufferedReader(new FileReader(inputFileName));
+			String buffer;
+			while ((buffer = bu.readLine()) != null) {
+				fullText = fullText + buffer;
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		System.out.println("fulltext: " + fullText);
+		sentences = Arrays.asList(fullText.split("[.!?]\\s*"));
 
-        wordsFirstSentence = Arrays.asList(sentences.get(0).split("[\\p{Punct}\\s\"«»]+"));
+		wordsFirstSentence = Arrays.asList(sentences.get(0).split("[\\p{Punct}\\s\"«»]+"));
 
-        for (int i = 0; i < sentences.size(); i++) { //++i or i++??????
+		for (int i = 0; i < sentences.size(); i++) { // ++i or i++??????
 
-            fullWordsList.addAll(Arrays.asList(sentences.get(i).split("[\\p{Punct}\\s\"«»]+")));
+			fullWordsList.addAll(Arrays.asList(sentences.get(i).split("[\\p{Punct}\\s\"«»]+")));
 
-        }
+		}
 
-        Integer countOfCurrentWord = 0;
+		Integer countOfCurrentWord = 0;
 
-        for (int i = 0; i < wordsFirstSentence.size(); i++) {
+		for (int i = 0; i < wordsFirstSentence.size(); i++) {
 
-            countOfCurrentWord = 0;
+			countOfCurrentWord = 0;
 
-            for (int j = 0; j < fullWordsList.size(); j++) {
+			for (int j = 0; j < fullWordsList.size(); j++) {
 
-                if (fullWordsList.get(j).equals(wordsFirstSentence.get(i))) {
+				if (fullWordsList.get(j).equals(wordsFirstSentence.get(i))) {
 
-                    countOfCurrentWord = countOfCurrentWord + 1;
+					countOfCurrentWord = countOfCurrentWord + 1;
 
-                }
+				}
 
-            }
+			}
 
-            if (countOfCurrentWord > maxCountWordNmbr) {
+			if (countOfCurrentWord > maxCountWordNmbr) {
 
-                maxCountWordNmbr = countOfCurrentWord;
+				maxCountWordNmbr = countOfCurrentWord;
 
-                maxWord = wordsFirstSentence.get(i);
+				maxWord = wordsFirstSentence.get(i);
 
-            }
+			}
 
-        }
+		}
 
-        System.out.println("Word " + maxWord + " is the most popular word of the first sentence in the text");
+		System.out.println("Word " + maxWord + " is the most popular word of the first sentence in the text");
 
-        System.out.println("It occurs " + maxCountWordNmbr + " times"); // I could take into acccount the words, that
+		System.out.println("It occurs " + maxCountWordNmbr + " times"); // I could take into acccount the words, that
 
 // are used equally count of times, but i didn't do it.
-    }
+	}
 }
