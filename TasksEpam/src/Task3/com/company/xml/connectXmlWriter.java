@@ -19,5 +19,5 @@ public class connectXmlWriter {
 //        }
 //
 //    }
-    //in running...
+    //I will make this part if will have a time. There are no writer-task
 }

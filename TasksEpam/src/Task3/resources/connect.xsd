@@ -1,89 +1,91 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.example.org/connect"
-        xmlns:tns="http://www.example.org/connect" elementFormDefault="qualified">
-    <element name="tarifs">
-        <complexType>
-            <sequence>
-                <element name="tarif" maxOccurs="unbounded">
-                    <complexType>
-                        <sequence>
-                            <element name="name" type="string"/>
-                            <element name="operatorName" type="string"/>
-                            <element name="payRoll" >
-                                <simpleType>
-                                    <restriction base="int">
-                                        <minInclusive value="0"/>
-                                        <maxInclusive value="99"/>
-                                    </restriction>
-                                </simpleType>
-                            </element>
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://www.example.org/connect"
+	xmlns:tns="http://www.example.org/connect"
+	elementFormDefault="qualified">
+	<element name="tarifs">
+		<complexType>
+			<sequence>
+				<element name="tarif" maxOccurs="unbounded">
+					<complexType>
+						<sequence>
+							<element name="name" type="string" />
+							<element name="operatorName" type="string" />
+							<element name="payRoll">
+								<simpleType>
+									<restriction base="int">
+										<minInclusive value="0" />
+										<maxInclusive value="99" />
+									</restriction>
+								</simpleType>
+							</element>
 
-                            <element name="callPrice" >
-                                <complexType>
-                                    <sequence>
-                                        <element name="inNetCallCost" >
-                                            <simpleType>
-                                                <restriction base="int">
-                                                    <minInclusive value="0"/>
-                                                    <maxInclusive value="99"/>
-                                                </restriction>
-                                            </simpleType>
-                                        </element>
-                                        <element name="outNetCallCost">
-                                            <simpleType>
-                                                <restriction base="int">
-                                                    <minInclusive value="0"/>
-                                                    <maxInclusive value="99"/>
-                                                </restriction>
-                                            </simpleType>
-                                        </element>
-                                        <element name="homePhoneCallCost">
-                                            <simpleType>
-                                                <restriction base="int">
-                                                    <minInclusive value="0"/>
-                                                    <maxInclusive value="99"/>
-                                                </restriction>
-                                            </simpleType>
-                                        </element>
-                                    </sequence>
-                                </complexType>
-                            </element>
+							<element name="callPrice">
+								<complexType>
+									<sequence>
+										<element name="inNetCallCost">
+											<simpleType>
+												<restriction base="int">
+													<minInclusive value="0" />
+													<maxInclusive value="99" />
+												</restriction>
+											</simpleType>
+										</element>
+										<element name="outNetCallCost">
+											<simpleType>
+												<restriction base="int">
+													<minInclusive value="0" />
+													<maxInclusive value="99" />
+												</restriction>
+											</simpleType>
+										</element>
+										<element name="homePhoneCallCost">
+											<simpleType>
+												<restriction base="int">
+													<minInclusive value="0" />
+													<maxInclusive value="99" />
+												</restriction>
+											</simpleType>
+										</element>
+									</sequence>
+								</complexType>
+							</element>
 
 
-                            <element name="smsPrice">
-                                <simpleType>
-                                    <restriction base="int">
-                                        <minInclusive value="0"/>
-                                        <maxInclusive value="10"/>
-                                    </restriction>
-                                </simpleType>
-                            </element>
-                            <element name="parameters">
-                                <complexType>
-                                    <sequence>
-                                        <element name="lovelyNumber" minOccurs="0">
-                                            <simpleType>
-                                                <restriction base="string">
-                                                    <pattern value="\+375(29|33|44|25)[0-9]{7}"/>
-                                                </restriction>
-                                            </simpleType>
-                                        </element>
-                                        <element name="tarificationTime" >
-                                            <simpleType>
-                                                <restriction base="int">
-                                                    <enumeration value="12"/>
-                                                    <enumeration value="60"/>
-                                                </restriction>
-                                            </simpleType>
-                                        </element>
-                                        <element name="comingPay" type="positiveInteger"/>
-                                    </sequence>
-                                </complexType>
-                            </element>
-                        </sequence>
-                    </complexType>
-                </element>
-            </sequence>
-        </complexType>
-    </element>
+							<element name="smsPrice">
+								<simpleType>
+									<restriction base="int">
+										<minInclusive value="0" />
+										<maxInclusive value="10" />
+									</restriction>
+								</simpleType>
+							</element>
+							<element name="parameters">
+								<complexType>
+									<sequence>
+										<element name="lovelyNumber" minOccurs="0">
+											<simpleType>
+												<restriction base="string">
+													<pattern value="\+375(29|33|44|25)[0-9]{7}" />
+												</restriction>
+											</simpleType>
+										</element>
+										<element name="tarificationTime">
+											<simpleType>
+												<restriction base="int">
+													<enumeration value="12" />
+													<enumeration value="60" />
+												</restriction>
+											</simpleType>
+										</element>
+										<element name="comingPay" type="positiveInteger" />
+									</sequence>
+								</complexType>
+							</element>
+						</sequence>
+					</complexType>
+				</element>
+			</sequence>
+		</complexType>
+	</element>
 </schema>
