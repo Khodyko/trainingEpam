@@ -10,6 +10,14 @@ import java.util.List;
 
 public class Main {
 
+	public static boolean isVoid(String string) {
+		if(string.equals("")) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
 	public static void main(String[] args) {
 		List<String> sentences = new ArrayList<>();
 
@@ -32,8 +40,14 @@ public class Main {
 			while ((buffer = bu.readLine()) != null) {
 				fullText = fullText + buffer;
 			}
+			if(isVoid(fullText)) {
+				throw new IOException();
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
+			System.out.println("text is not available, please get right link");
+			System.exit(0);
+			
 		}
 		System.out.println("fulltext: " + fullText);
 		sentences = Arrays.asList(fullText.split("[.!?]\\s*"));
@@ -78,4 +92,5 @@ public class Main {
 
 // are used equally count of times, but i didn't do it.
 	}
+	
 }
