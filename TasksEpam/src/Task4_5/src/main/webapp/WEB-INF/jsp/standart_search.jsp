@@ -1,0 +1,106 @@
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
+<%@ page import="by.mycloud_zapchast.www.entity.User"%>
+<%@ page import="java.util.ArrayList"%>
+<%@ page import="java.util.List"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Zapchasti</title>
+<link rel="stylesheet" href="resources/css/property.css" type="text/css">
+<link rel="stylesheet" href="resources/css/header.css" type="text/css">
+<style type="text/css">
+input {
+	background-color: #058acc;
+	border: none;
+	border-radius: 9px;
+	width: 200px;
+	height: 40px;
+	color: #809EAE;
+	padding-left: 15px;
+	background-color: white;
+}
+
+.zapchast_button {
+	padding-left: 20px;
+	padding-right: 20px;
+	color: white;
+	font-weight: 400;
+	font-size: 20px;
+	background-color: #058acc;
+}
+</style>
+</head>
+
+<body>
+	<%@include file="header.jsp"%>
+
+<!-- Input Fields -->
+	<div class="lineconteiner" style="background-color: none; justify-content: center;">
+		<form action="Controller" method="post">
+			<input type="hidden" name="commandToController" value="STANDART_SEARCH" />
+			<div class="columnconteiner2string" style="float: left;">
+				<input type="hidden" name="commandToController" value="" />
+				<a style="color: white; margin-left: 5px;">Наименование запчасти</a>
+				<input type="text" name="itemName" value="" placeholder="Введите наименование" />
+			</div>
+			<div class="columnconteiner2string" style="float: left;">
+				<a style="color: white; margin-left: 5px;">Номенклатурный №</a>
+				<input type="text" name="nn" value="" placeholder="Введите номер" />
+			</div>
+			<div class="columnconteiner2string" style="float: left;">
+				<a style="color: white; margin-left: 5px;">№ SAP</a>
+				<input type="text" name="nnSap" value="" placeholder="Введите №SAP" />
+			</div>
+
+			<div class="columnconteiner2string" style="float: left;">
+				<button style="color: #FFB74E; align-item: center; border-radius: 20px; height: 40px; margin-top: 18px;">
+					<a>Найти</a>
+					<img style="margin-left: 20px; height: 15px; width: 15px;" src="resources/pictures/search_icon.png" />
+				</button>
+			</div>
+		</form>
+	</div>
+
+	<div class="search_big_conteiner">
+		<div class="lineconteiner" style="background-color: none; justify-content: center;">
+			<div class="columnconteiner" style="float: left;">
+				<a>Наименование</a>
+			</div>
+			<div class="columnconteiner" style="float: left;">
+				<a>Номенклатурный №</a>
+			</div>
+			<div class="columnconteiner" style="float: left;">
+				<a>№ Sap</a>
+			</div>
+		
+		</div>
+		<c:if test="${items_bd != null && items.size()!=0}">
+			<c:forEach var="item" items="${items_bd}">
+				<div class="shadowlineconteiner" style="background-color: none; justify-content: center;">
+					<div class="columnconteiner" style="float: left;">
+						<a>${item.getName()}</a>
+					</div>
+					<div class="columnconteiner" style="float: left;">
+						<a>${item.getNn()}</a>
+					</div>
+					<div class="columnconteiner" style="float: left;">
+						<a>${item.getNnSap()}</a>
+					</div>
+					
+				</div>
+			</c:forEach>
+		</c:if>
+		<c:if test="${items == null || items.size()==0}">
+			<div class="shadowlineconteiner" style="background-color: none; justify-content: center;">
+				<div class="columnconteiner" style="float: left;">
+					<a>Ничего не найдено</a>
+				</div>
+			</div>
+		</c:if>
+	</div>
+</body>
+</html>
