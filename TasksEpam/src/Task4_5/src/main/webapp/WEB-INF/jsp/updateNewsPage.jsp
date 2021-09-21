@@ -1,14 +1,14 @@
-
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ page import="by.hodyko.www.bean.News"%>
 <%@ page import="by.hodyko.www.bean.User"%>
 <!DOCTYPE html>
 <html>
 <head>
 
 <meta charset="utf-8">
-<title>LOGIN PAGE</title>
+<title>UPDATE NEWS PAGE</title>
 <link rel="stylesheet" href="resources/css/property.css" type="text/css">
 <fmt:setLocale value="${sessionScope.local}" />
 <fmt:setBundle basename="resources.localization.local" var="loc" />
@@ -17,12 +17,6 @@
 <fmt:message bundle="${loc}" key="local.headline.button.name.register" var="register_button" />
 <fmt:message bundle="${loc}" key="local.headline.button.name.addnews" var="add_news_button" />
 <fmt:message bundle="${loc}" key="local.headline.button.name.login" var="login_button" />
-<fmt:message bundle="${loc}" key="local.login.text.head1" var="head1_text" />
-<fmt:message bundle="${loc}" key="local.login.text.head2" var="head2_text" />
-<fmt:message bundle="${loc}" key="local.login.link.login.page" var="link_register_page" />
-<fmt:message bundle="${loc}" key="local.login.field.login" var="field_login" />
-<fmt:message bundle="${loc}" key="local.login.field.password" var="field_password" />
-<fmt:message bundle="${loc}" key="local.login.button.send" var="send_button" />
 </head>
 <body>
 	<div class="headline">
@@ -47,13 +41,12 @@
 				</c:if>
 			</c:if>
 
-
 			<form action="Controller" method="post">
 				<input type="hidden" name="commandToController" value="REGISTRATION_PAGE" />
 				<button>${register_button}</button>
 			</form>
 			<form action="Controller" method="post">
-				<input type="hidden" name="commandToController" value="AUTHORIZATION_PAGE" />
+				<input type="hidden" name="commandToController" value="2	AUTHORIZATION_PAGE" />
 				<button>${login_button}</button>
 			</form>
 		</div>
@@ -66,6 +59,8 @@
 				<img src="resources/pictures/usFlag.png">
 			</button>
 		</form>
+
+
 		<form action="Controller" method="post">
 			<input type="hidden" name="commandToController" value="CHANGE_LOCAL" />
 			<button type="submit" name="local" value="ru"
@@ -75,40 +70,29 @@
 		</form>
 
 	</div>
-
-	<div class="registrationDiv">
-		<h2 style="font-weight: 600;">MD-JD2-76-21</h2>
-		<font style="text-size: 16; font-weight: 600;">${head1_text}</font>
-		<div style="display: flex; flex-direction: column;">
-			<font style="text-size: 5;">${head2_text}</font>
-			<form action="Controller" method="post">
-				<input type="hidden" name="commandToController" value="REGISTRATION_PAGE" />
-				<a href="http://localhost:8080/wow-project/Controller?commandToController=REGISTRATION_PAGE">${link_register_page}</a>
-			</form>
-		</div>
-		<form action="Controller" method="post" style="color: white">
+	<div class="registrationDiv" style="width: 400px; height:510px">
+		<h2 style="font-weight: 600;">Update New News</h2>
+		<form action="Controller" method="post" enctype="multipart/form-data">
+			<textarea name="title"  placeholder="title" style="size: 80px; width: 350px;" >${choosenNews.getTitle()}</textarea>
 			<br />
 			<br />
-			<input type="hidden" name="commandToController" value="AUTHORIZATION_USER" /> <input type="text" name="login" value=""
-				placeholder="${field_login}" />
+			<textarea name="brief"  placeholder="brief" style="size: 80px; width: 350px; height:60px" >${choosenNews.getBrief()}</textarea>
 			<br />
 			<br />
-			<input type="password" name="password" value="" placeholder="${field_password}" />
+			<textarea name="full_text"  placeholder="full text" style="size: 80px; width: 350px; height:200px" >${choosenNews.getFullText()}</textarea>
 			<br />
 			<br />
-			<br />
-			<input type="submit" value="${send_button}" class="redbutton1" />
-			<br />
+			<!--<label style="color: white;"> 
+				Load Image <input type="file" name="file" style="visibility: hidden;" multiple accept="image/*" />
+			</label> 
+			-->
+			<input type="hidden" name="choosenId" value="${choosenNews.getId()}" />
+			<input type="hidden" name="commandToController" value="UPDATE_NEWS" />
+			
+			<button>Update</button>
 		</form>
-		<font class="systemMessage"> <%
- String message = (String) request.getParameter("message");
- if (message != null) {
- 	out.print(message);
- }
- %>
-
-		</font>
 	</div>
+
 
 </body>
 </html>

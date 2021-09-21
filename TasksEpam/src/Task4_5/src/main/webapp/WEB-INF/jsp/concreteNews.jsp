@@ -1,15 +1,22 @@
 
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
+<%@ page import="by.hodyko.www.bean.News"%>
+<%@ page import="by.hodyko.www.bean.User"%>
+<%@ page import="by.hodyko.www.bean.RoleEnum"%>
+<%@ page import="java.util.ArrayList"%>
+<%@ page import="java.util.List"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-<%@ page import="by.hodyko.www.bean.User"%>
+
 <!DOCTYPE html>
 <html>
 <head>
-
 <meta charset="utf-8">
-<title>LOGIN PAGE</title>
 <link rel="stylesheet" href="resources/css/property.css" type="text/css">
+<title>super</title>
+
+
+
 <fmt:setLocale value="${sessionScope.local}" />
 <fmt:setBundle basename="resources.localization.local" var="loc" />
 
@@ -17,13 +24,9 @@
 <fmt:message bundle="${loc}" key="local.headline.button.name.register" var="register_button" />
 <fmt:message bundle="${loc}" key="local.headline.button.name.addnews" var="add_news_button" />
 <fmt:message bundle="${loc}" key="local.headline.button.name.login" var="login_button" />
-<fmt:message bundle="${loc}" key="local.login.text.head1" var="head1_text" />
-<fmt:message bundle="${loc}" key="local.login.text.head2" var="head2_text" />
-<fmt:message bundle="${loc}" key="local.login.link.login.page" var="link_register_page" />
-<fmt:message bundle="${loc}" key="local.login.field.login" var="field_login" />
-<fmt:message bundle="${loc}" key="local.login.field.password" var="field_password" />
-<fmt:message bundle="${loc}" key="local.login.button.send" var="send_button" />
+
 </head>
+
 <body>
 	<div class="headline">
 
@@ -46,8 +49,6 @@
 					</form>
 				</c:if>
 			</c:if>
-
-
 			<form action="Controller" method="post">
 				<input type="hidden" name="commandToController" value="REGISTRATION_PAGE" />
 				<button>${register_button}</button>
@@ -58,6 +59,7 @@
 			</form>
 		</div>
 	</div>
+
 	<div class="conteiner">
 		<form action="Controller" method="post">
 			<input type="hidden" name="commandToController" value="CHANGE_LOCAL" />
@@ -75,40 +77,20 @@
 		</form>
 
 	</div>
+	<div style="justify-content: center;">
+		<div style="width: 80%; margin: 0 auto; text-align: center;">
 
-	<div class="registrationDiv">
-		<h2 style="font-weight: 600;">MD-JD2-76-21</h2>
-		<font style="text-size: 16; font-weight: 600;">${head1_text}</font>
-		<div style="display: flex; flex-direction: column;">
-			<font style="text-size: 5;">${head2_text}</font>
-			<form action="Controller" method="post">
-				<input type="hidden" name="commandToController" value="REGISTRATION_PAGE" />
-				<a href="http://localhost:8080/wow-project/Controller?commandToController=REGISTRATION_PAGE">${link_register_page}</a>
-			</form>
+			<h1>
+				<c:out value="${choosenNews.getTitle()}" />
+			</h1>
+
+			<img alt="image" src=<c:out value="${choosenNews.getImgLink()}"/>>
+
+			<h3>
+				<c:out value="${choosenNews.getFullText()}" />
+			</h3>
+
 		</div>
-		<form action="Controller" method="post" style="color: white">
-			<br />
-			<br />
-			<input type="hidden" name="commandToController" value="AUTHORIZATION_USER" /> <input type="text" name="login" value=""
-				placeholder="${field_login}" />
-			<br />
-			<br />
-			<input type="password" name="password" value="" placeholder="${field_password}" />
-			<br />
-			<br />
-			<br />
-			<input type="submit" value="${send_button}" class="redbutton1" />
-			<br />
-		</form>
-		<font class="systemMessage"> <%
- String message = (String) request.getParameter("message");
- if (message != null) {
- 	out.print(message);
- }
- %>
-
-		</font>
 	</div>
 
 </body>
-</html>

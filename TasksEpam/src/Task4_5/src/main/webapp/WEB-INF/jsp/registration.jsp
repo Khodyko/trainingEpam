@@ -1,4 +1,3 @@
-
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
@@ -8,7 +7,7 @@
 <head>
 
 <meta charset="utf-8">
-<title>LOGIN PAGE</title>
+<title>REGISTRATION PAGE</title>
 <link rel="stylesheet" href="resources/css/property.css" type="text/css">
 <fmt:setLocale value="${sessionScope.local}" />
 <fmt:setBundle basename="resources.localization.local" var="loc" />
@@ -17,12 +16,12 @@
 <fmt:message bundle="${loc}" key="local.headline.button.name.register" var="register_button" />
 <fmt:message bundle="${loc}" key="local.headline.button.name.addnews" var="add_news_button" />
 <fmt:message bundle="${loc}" key="local.headline.button.name.login" var="login_button" />
-<fmt:message bundle="${loc}" key="local.login.text.head1" var="head1_text" />
-<fmt:message bundle="${loc}" key="local.login.text.head2" var="head2_text" />
-<fmt:message bundle="${loc}" key="local.login.link.login.page" var="link_register_page" />
-<fmt:message bundle="${loc}" key="local.login.field.login" var="field_login" />
-<fmt:message bundle="${loc}" key="local.login.field.password" var="field_password" />
-<fmt:message bundle="${loc}" key="local.login.button.send" var="send_button" />
+<fmt:message bundle="${loc}" key="local.registration.text.head1" var="head1_text" />
+<fmt:message bundle="${loc}" key="local.registration.text.head2" var="head2_text" />
+<fmt:message bundle="${loc}" key="local.registration.link.login.page" var="link_login_page" />
+<fmt:message bundle="${loc}" key="local.registration.field.login" var="field_login" />
+<fmt:message bundle="${loc}" key="local.registration.field.password" var="field_password" />
+<fmt:message bundle="${loc}" key="local.registration.button.send" var="send_button" />
 </head>
 <body>
 	<div class="headline">
@@ -33,6 +32,7 @@
 			</h1>
 		</a>
 		<div class="conteiner">
+
 			<c:if test="${sessionScope.user != null}">
 				<%
 				String UserRole = (((User) request.getSession(false).getAttribute("user")).getRole()).toString();
@@ -46,8 +46,6 @@
 					</form>
 				</c:if>
 			</c:if>
-
-
 			<form action="Controller" method="post">
 				<input type="hidden" name="commandToController" value="REGISTRATION_PAGE" />
 				<button>${register_button}</button>
@@ -75,29 +73,29 @@
 		</form>
 
 	</div>
-
 	<div class="registrationDiv">
 		<h2 style="font-weight: 600;">MD-JD2-76-21</h2>
 		<font style="text-size: 16; font-weight: 600;">${head1_text}</font>
 		<div style="display: flex; flex-direction: column;">
 			<font style="text-size: 5;">${head2_text}</font>
 			<form action="Controller" method="post">
-				<input type="hidden" name="commandToController" value="REGISTRATION_PAGE" />
-				<a href="http://localhost:8080/wow-project/Controller?commandToController=REGISTRATION_PAGE">${link_register_page}</a>
+				<input type="hidden" name="commandToController" value="AUTHORIZATION_PAGE" />
+				<a href="http://localhost:8080/wow-project/Controller?commandToController=AUTHORIZATION_PAGE">${link_login_page}</a>
 			</form>
 		</div>
-		<form action="Controller" method="post" style="color: white">
+		<form action="Controller" method="post">
 			<br />
 			<br />
-			<input type="hidden" name="commandToController" value="AUTHORIZATION_USER" /> <input type="text" name="login" value=""
-				placeholder="${field_login}" />
+			<input type="hidden" name="commandToController" value="REGISTRATION_NEW_USER" />
+			<br />
+			<input type="text" name="login" value="" placeholder="${field_login}" />
 			<br />
 			<br />
 			<input type="password" name="password" value="" placeholder="${field_password}" />
 			<br />
 			<br />
 			<br />
-			<input type="submit" value="${send_button}" class="redbutton1" />
+			<input type="submit" class="redbutton1" value="${send_button}" />
 			<br />
 		</form>
 		<font class="systemMessage"> <%
@@ -106,8 +104,8 @@
  	out.print(message);
  }
  %>
-
 		</font>
+
 	</div>
 
 </body>
