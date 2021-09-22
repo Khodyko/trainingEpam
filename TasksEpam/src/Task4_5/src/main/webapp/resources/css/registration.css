@@ -6,6 +6,16 @@
 	justify-content: space-between;
 	align-items: center;
 	margin: 0;
+	border-bottom-color: #35B9FF;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+.namelogocircle {
+	height: 80px;
+	width: 80px;
+	background-color: #E6F6FF;
+	border-color: #35B9FF;
 }
 
 .inputline {
@@ -32,8 +42,7 @@
 	border-radius: 12px;
 	padding: 10px 0;
 	text-align: center;
-	box-shadow: 0 0 6px rgba(0, 0, 0, 0.5);
-	margin-top: 6px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 	margin-left: 12px;
 	margin-right: 12px;
 }
@@ -70,7 +79,7 @@ html {
 	height: 100%;
 	width: 100%;
 	margin: 0;
-	background: linear-gradient(#058acc, #32baff) fixed;
+	background: white;
 	min-height: 100%;
 }
 
@@ -90,6 +99,7 @@ body {
 .bluetxtcolor {
 	color: #4ea4d1;
 }
+.redmessage{color:red;}
 
 input {
 	border: none;
@@ -97,8 +107,12 @@ input {
 	width: 200px;
 	height: 40px;
 	color: #809EAE;
-	padding-left: 15px;
+	padding-left: 10px;
 	background-color: white;
+	border-color: #35B9FF;
+	border-width: 1px;
+	border-style: solid;
+	margin: 5px;
 }
 
 input[type=submit] {
@@ -136,10 +150,11 @@ button {
 	margin: 20px;
 	background-color: white;
 	width: 97%;
+	height: 100%;
 	border-radius: 20px;
 	margin-left: auto;
 	margin-right: auto;
-	border-radius: 10px;
+	border-radius: 5px 5px 0 0;
 	padding: 10px 0;
 	text-align: center;
 }
