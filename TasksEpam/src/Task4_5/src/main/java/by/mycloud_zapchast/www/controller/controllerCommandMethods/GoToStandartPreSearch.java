@@ -15,18 +15,11 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 public class GoToStandartPreSearch implements Command {
-	private static final ServiceProvider PROVIDER = ServiceProvider.getInstance();
-	private static final ItemService ITEM_SERVICE = PROVIDER.getItemService();
-	
+
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String path = "/WEB-INF/jsp/standart_pre_search.jsp";
-		HttpSession session = request.getSession(true);
-		
-		List<String> yearDb = new ArrayList();
-		
-	
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher(path);
 		requestDispatcher.forward(request, response);
 	}

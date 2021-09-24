@@ -36,6 +36,8 @@ input {
 	background-color: #058acc;
 }
 </style>
+<script defer src="resources/js/mask.js"></script>
+<script defer src="resources/js/main.js"></script>
 </head>
 
 <body>
@@ -53,7 +55,7 @@ input {
 			</div>
 			<div class="columnconteiner2string" style="float: left;">
 				<a style="color: white; margin-left: 5px;">Номенклатурный №</a>
-				<input type="text" name="nn" value="" placeholder="Введите номер" />
+				<input type="text" data-mask="nn_mask" name="nn" value="" placeholder="Введите номер" />
 			</div>
 			<div class="columnconteiner2string" style="float: left;">
 				<a style="color: white; margin-left: 5px;">№ SAP</a>

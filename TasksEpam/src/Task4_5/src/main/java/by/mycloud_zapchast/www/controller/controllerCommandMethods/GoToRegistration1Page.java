@@ -1,6 +1,8 @@
 package by.mycloud_zapchast.www.controller.controllerCommandMethods;
 
 import java.io.IOException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 import by.mycloud_zapchast.www.controller.Command;
@@ -20,16 +22,19 @@ public class GoToRegistration1Page implements Command {
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String path = "/WEB-INF/jsp/registration1.jsp";
-		
+		String encodedMessage=null;
 		List<Depo> depoDb = null;
 		String message=null;
 		try {
 			depoDb = ITEM_SERVICE.getDepos();
 		} catch (ServiceException e) {
-			path= "ERROR_PAGE";
+			path= "/WEB-INF/jsp/error.jsp";
 			e.printStackTrace(); //logger
+			message=e.getMessage();
 			request.setAttribute("user_message", message);
-			response.sendRedirect("Controller?commandToController=" + path);
+			
+			RequestDispatcher requestDispatcher = request.getRequestDispatcher(path);
+			requestDispatcher.forward(request, response);
 			return;
 		}
 		

@@ -1,4 +1,4 @@
-package by.mycloud_zapchast.www.service.impl;
+package by.mycloud_zapchast.www.service;
 
 public interface MailSender {
 	

@@ -36,17 +36,12 @@ public class CommandProvider {
 			}
 
 	public Command findCommand(String name) {
-		System.out.println(name);
-		if (name == null) {
-			name = CommandName.ERROR_PAGE.toString();
-		}
+		
 
 		CommandName commandName;
-		try {
-			commandName = CommandName.valueOf(name.toUpperCase());
-		} catch (IllegalArgumentException e) { // logging
-			commandName = CommandName.ERROR_PAGE;
-		}
+		
+		commandName = CommandName.valueOf(name.toUpperCase());
+		
 
 		Command command = commands.get(commandName);
 		return command;

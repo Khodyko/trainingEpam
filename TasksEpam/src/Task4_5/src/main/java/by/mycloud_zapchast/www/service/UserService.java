@@ -7,5 +7,5 @@ public interface UserService {
 
 	public void registerUser(RegistrationInfo info) throws ServiceException;
 	public User authorizeUser(String email, String password) throws ServiceException;
-//	public void validate1Registration() throws ServiceException
+	public void validate1Registration(String name, String secondName) throws ServiceException;
 }

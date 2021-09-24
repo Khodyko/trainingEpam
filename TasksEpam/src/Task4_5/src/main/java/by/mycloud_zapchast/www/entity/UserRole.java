@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public enum UserRole {
-	ADMIN("admin"), EMPLOYEE("employee"), MASTER("master"), SUPPLIER("supplier"), USER("user");
+	ADMIN("admin"), EMPLOYER("employer"), MASTER("master"), SUPPLIER("supplier"), USER("user");
 
 	
 

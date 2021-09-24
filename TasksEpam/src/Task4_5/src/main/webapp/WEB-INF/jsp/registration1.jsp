@@ -10,8 +10,7 @@
 <head>
 <style>
 @import
-	url('https://fonts.googleapis.com/css2?family=Open+Sans&family=Roboto&display=swap')
-	;
+	url('https://fonts.googleapis.com/css2?family=Open+Sans&family=Roboto&display=swap');
 </style>
 <meta charset="utf-8">
 <title>REGISTRATION_1_PAGE</title>
@@ -32,7 +31,9 @@
 			<a href="Controller?commandToController=GO_TO_AUTHORIZATION_PAGE">Страница авторизации</a>
 			<br>
 		</div>
-		<form action="Controller" method="post" style="color: white">
+		
+		<form action="Controller" method="post" style="color: white, margin-bottom:50px;">
+			<input type="hidden" name="commandToController" value="GO_TO_REGISTRATION_2_PAGE" />
 			<select name="depo"
 				style="margin: 5px; border-color: #35B9FF; border-width: 1px; border-style: solid; border-radius: 9px; width: 212px; height: 45px; color: #809EAE; padding-left: 4px;">
 
@@ -43,23 +44,20 @@
 					</c:forEach>
 				</c:if>
 			</select>
-			<input type="hidden" name="commandToController" value="GO_TO_REGISTRATION_2_PAGE" />
+			
 			<input type="text" name="name" value="" required pattern="^[А-Яа-яЁё//-]{3,20}$" title="Текст кириллицей, возможно тире (3-20 символов)"
 				placeholder="Имя" />
 			<input type="text" name="second_name" value="" required pattern="^[А-Яа-яЁё//-]{3,20}$" title="Текст кириллицей, возможно тире (3-20 символов)"
 				placeholder="Фамилия" />
 
 			<input type="submit" value="Дальше" class="bluebutton" style="width: 220px; height: 40px;" />
-			<br />
+		<br><br><br>
+		<a class="redmessage" >${param.user_message}</a>
+		<br><br><br>
 		</form>
-		<br />
-		<br />
-		<br />
-		<br />
-		<br />
-		<br />
-		<a class="redmessage">${user_message}</a>
+		
+		
+		
 	</div>
-
 </body>
 </html>

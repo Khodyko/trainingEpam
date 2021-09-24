@@ -36,6 +36,10 @@ public class ItemConnectionPool {
 	private String password;
 	private int poolSize;
 
+	public static ItemConnectionPool getInstance() {
+		return instance;
+	}
+
 	private ItemConnectionPool() {
 		DBItemResourceManager dbResourceManager = DBItemResourceManager.getInstance();
 		this.driverName = dbResourceManager.getValue(DBItemParameter.DB_ITEM_DRIVER);
@@ -56,10 +60,6 @@ public class ItemConnectionPool {
 		}
 	}
 
-	public static ItemConnectionPool getInstance() {
-		return instance;
-	}
-
 	public void initPoolData() throws ConnectionPoolException {
 		Locale.setDefault(Locale.ENGLISH);
 
@@ -74,13 +74,14 @@ public class ItemConnectionPool {
 				connectionQueue.add(poledConnection);
 			}
 		} catch (SQLException e) {
+			//rewrite message LOG and printconsole
 			throw new ConnectionPoolException("SQLException in ConnectionPool", e);
 		} catch (ClassNotFoundException e) {
 			throw new ConnectionPoolException("Driver for work with DB is not found", e);
 		}
 	}
 
-	public void dispose() throws ConnectionPoolException{
+	public void dispose() throws ConnectionPoolException {
 		clearConnectionQueue();
 	}
 
@@ -95,6 +96,7 @@ public class ItemConnectionPool {
 
 	public Connection takeConnection() throws ConnectionPoolException {
 		Connection connection = null;
+	
 		try {
 			connection = connectionQueue.take();
 			givenAwayConQueue.add(connection);

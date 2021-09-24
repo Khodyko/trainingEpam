@@ -10,12 +10,17 @@
 <html>
 <head>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans&family=Roboto&display=swap');
+@import
+	url('https://fonts.googleapis.com/css2?family=Open+Sans&family=Roboto&display=swap')
+	;
 </style>
 <meta charset="utf-8">
 <title>Zapchasti</title>
 <link rel="stylesheet" href="resources/css/property.css" type="text/css">
 <link rel="stylesheet" href="resources/css/header.css" type="text/css">
+<script src="/js/jquery.min.js"></script>
+<script src="/js/jquery.maskedinput.min.js"></script>
+
 <style type="text/css">
 .input {
 	background-color: #058acc;
@@ -37,11 +42,15 @@
 	background-color: #058acc;
 }
 </style>
+<script defer src="resources/js/mask.js"></script>
+<script defer src="resources/js/main.js"></script>
+
+
 </head>
 
 <body>
 	<%@include file="header.jsp"%>
-	
+
 	<!-- Input Fields -->
 	<div class="lineconteiner" style="background-color: none; justify-content: center;">
 		<form action="Controller" method="post">
@@ -53,13 +62,12 @@
 			</div>
 			<div class="columnconteiner2string" style="float: left;">
 				<a style="color: white; margin-left: 5px;">Номенклатурный №</a>
-				<input type="text" name="nn" value="" placeholder="Введите номер" />
+				<input type="text" data-mask="nn_mask" name="nn" value="" placeholder="Введите номер" />
 			</div>
 			<div class="columnconteiner2string" style="float: left;">
 				<a style="color: white; margin-left: 5px;">№ SAP</a>
-				<input type="text" name="nnSap" value="" placeholder="Введите №SAP" />
+				<input type="text" name="nnSap" class="mask-phone form-control" value="" placeholder="Введите №SAP" />
 			</div>
-
 			<div class="columnconteiner2string" style="float: left;">
 				<button style="color: #FFB74E; align-item: center; border-radius: 20px; height: 40px; margin-top: 18px;">
 					<a>Найти</a>
@@ -80,10 +88,8 @@
 			<div class="columnconteiner" style="float: left;">
 				<a>№ Sap</a>
 			</div>
-			
 		</div>
-
-
 	</div>
+
 </body>
 </html>

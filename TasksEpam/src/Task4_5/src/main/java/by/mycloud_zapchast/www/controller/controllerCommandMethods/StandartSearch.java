@@ -23,30 +23,27 @@ public class StandartSearch implements Command {
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String path = "/WEB-INF/jsp/standart_search.jsp";
-		String lastCommandName = "GO_TO_MAIN_PAGE";
 		StandartSearchItem itemBd = new StandartSearchItem();
-		List<StandartSearchItem> standartSearchItemList=new ArrayList<StandartSearchItem>();
+		List<StandartSearchItem> standartSearchItemList = new ArrayList<StandartSearchItem>();
 		HttpSession session = request.getSession(true);
 		List<String> yearDb = new ArrayList();
 		String name = request.getParameter("itemName");
 		String nn = request.getParameter("nn");
 		String nnSap = request.getParameter("nnSap");
-		
 		itemBd.setName(name);
 		itemBd.setNn(nn);
 		itemBd.setNnSap(nnSap);
-		
 
 		try {
 			standartSearchItemList = ITEM_SERVICE.getStandartSearchItem(itemBd);
 		} catch (ServiceException e) {
+			path = "/WEB-INF/jsp/error.jsp";
 			System.out.println("message: " + e.getMessage());
 			e.printStackTrace();
+			RequestDispatcher requestDispatcher = request.getRequestDispatcher(path);
+			requestDispatcher.forward(request, response);
 		}
-	
-		System.out.println(standartSearchItemList);
-		
-		request.setAttribute("items_bd", standartSearchItemList );
+		request.setAttribute("items_bd", standartSearchItemList);
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher(path);
 		requestDispatcher.forward(request, response);
 	}

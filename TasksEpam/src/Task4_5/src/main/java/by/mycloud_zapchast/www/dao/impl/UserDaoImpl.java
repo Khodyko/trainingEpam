@@ -17,7 +17,6 @@ public class UserDaoImpl implements UserDao {
 	private static final String TECHNICAL_MSG_SQL_EXCP="DAO: SQL EXCEPTION";
 	private static final String TECHNICAL_MSG_POOL_EXCP="DAO: POOL EXCEPTION";
 	private static final String TECHNICAL_MSG_SOME_UNEXPECTED_EXCP="DAO: SOME UNEXPECTED EXCEPTION";
-	
 	private static final String USER_MSG_SQL_EXCP="У нас технические неполадки, попробуйте зайти на страницу через некоторое время";
 	private static final String PARAMETR_USER_ID = "user.id_user";
 	private static final String PARAMETR_USER_NAME = "user.name";
@@ -31,10 +30,7 @@ public class UserDaoImpl implements UserDao {
 	private static final String PARAMETR_USER_AGREED = "user.agreed";
 	private static final String PARAMETR_SECTOR_NAME = "sector_list.name_sector";
 	private static final String PARAMETR_SECTOR_ID = "sector_list.id_sector";
-
-	//	private static final String SQL_GET_ID_SECTOR_BY_NAME = "(SELECT " + PARAMETR_USER_ID_SECTOR
-//			+ " FROM sector_list WHERE( " + PARAMETR_SECTOR_NAME + "= ? AND " + PARAMETR_SECTOR_DEPO + "= ?))";
-//	
+	
 	private static final String SQL_INSERT_USER = "INSERT INTO user (" + PARAMETR_USER_NAME + ", "
 			+ PARAMETR_USER_SECOND_NAME + ", " + PARAMETR_USER_PASSWORD + ", " + PARAMETR_USER_SALT + ", "
 			+ PARAMETR_USER_ROLE + "," + PARAMETR_USER_EMAIL + ", " + PARAMETR_USER_ID_SECTOR + ", "
@@ -42,8 +38,7 @@ public class UserDaoImpl implements UserDao {
 	
 	private static final String SQL_GET_USER_BY_EMAIL = "(SELECT * FROM user WHERE( " + PARAMETR_USER_EMAIL + "= ? ));";
 	private static final String SQL_GET_USER_JOIN_SECTOR_TABLE_BY_EMAIL = "SELECT * FROM (user INNER JOIN sector_list ON "
-			+ PARAMETR_USER_ID_SECTOR + "=" + PARAMETR_SECTOR_ID + ") WHERE " + PARAMETR_USER_EMAIL + "= ? ;";
-//																			
+			+ PARAMETR_USER_ID_SECTOR + "=" + PARAMETR_SECTOR_ID + ") WHERE " + PARAMETR_USER_EMAIL + "= ? ;";																			
 
 	@Override
 	public void registerUser(User user, String encryptedPassword, String salt) throws DAOException {

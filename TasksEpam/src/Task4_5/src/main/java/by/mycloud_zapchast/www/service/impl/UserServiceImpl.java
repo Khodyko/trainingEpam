@@ -23,9 +23,9 @@ import by.mycloud_zapchast.www.service.ServiceException;
 import by.mycloud_zapchast.www.service.UserService;
 
 public class UserServiceImpl implements UserService {
-	private static final String PASSWORD_PATTERN = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#&()–[{}]:;',?/*~$^+=<>]).{8,20}$";
-	private static final String EMAIL_PATTERN = "^([\\w\\.\\-]+)@([\\w\\-]+)((\\.(\\w){2,3})+)";
-	private static final String NAMES_PATTERN = "^[А-Яа-яЁё//-]{3,20}$";
+	private static final String PASSWORD_PATTERN = "^(?=^.{6,20}$)(?=.*[0-9])(?=.*[A-Za-zА-Яа-я!@#$%^&*?]).*$";
+	private static final String EMAIL_PATTERN = "^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$";
+	private static final String NAME_PATTERN = "^[А-Яа-яЁё//-]{3,20}$";
 	private static final DaoProvider DAO_PROVIDER = DaoProvider.getInstance();
 	private static final UserDao USER_DAO = DAO_PROVIDER.getUserDao();
 
@@ -37,10 +37,10 @@ public class UserServiceImpl implements UserService {
 			user = new User(null, info.getName(), info.getSecondName(), UserRole.of(info.getRole()), info.getEmail(),
 					info.getDepoId(), info.getSectorId(), false);
 			USER_DAO.registerUser(user, encryptedPassword, salt);
-		} catch (DAOException | NoSuchAlgorithmException | InvalidKeySpecException e) {
-			e.printStackTrace();
-			throw new ServiceException();
-			// TODO: handle exception
+		} catch (DAOException e) {
+			throw new ServiceException(e.getMessage(), e);
+		} catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
+			throw new ServiceException("Авторизация недоступна, попробуйте еще раз через некоторое время", e);
 		}
 
 	}
@@ -55,19 +55,21 @@ public class UserServiceImpl implements UserService {
 			if (userInfo == null) {
 				throw new ServiceException("Email или пароль не верны");
 			}
-			if (isLoginPasswordMatch(userInfo, password)) {
+			if (isPasswordMatch(userInfo, password)) {
 				user = USER_DAO.getUser(email);
 				return user;
+			} else {
+				throw new ServiceException("Email или пароль не верны");
 			}
 		} catch (DAOException e) {
 			throw new ServiceException(e.getMessage(), e);
 		} catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
-			throw new ServiceException();
+			throw new ServiceException("Авторизация недоступна, попробуйте еще раз через некоторое время", e);
 		}
-		return user;
+
 	}
 
-	private boolean isLoginPasswordMatch(BaseUserInfo userInfo, String passwordToMatch)
+	private boolean isPasswordMatch(BaseUserInfo userInfo, String passwordToMatch)
 			throws NoSuchAlgorithmException, InvalidKeySpecException {
 		final String salt = userInfo.getSalt();
 		final String calculatedHash = getEncryptedPassword(passwordToMatch, salt);
@@ -110,7 +112,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	private void validatePassword(String password) throws ServiceException {
-		validateNotNullNotEmpty(password, "Password");
+		validateNotNullNotEmpty(password, "Пароль");
 
 		if (!validateByRegexp(password, PASSWORD_PATTERN)) {
 			throw new ServiceException("Пароль должен содержать минимум 6 символов, из них хотя бы одну цифру");
@@ -125,4 +127,16 @@ public class UserServiceImpl implements UserService {
 		}
 	}
 
+	@Override
+	public void validate1Registration(String name, String secondName) throws ServiceException {
+		validateNotNullNotEmpty(name, "Имя");
+		validateNotNullNotEmpty(secondName, "Фамилия");
+		if (!validateByRegexp(name, NAME_PATTERN)) {
+			throw new ServiceException("Имя должно содержать текст кириллицей, возможно тире (3-20 символов)");
+		}
+		if (!validateByRegexp(name, NAME_PATTERN)) {
+			throw new ServiceException("Фамилия должна содержать текст кириллицей, возможно тире (3-20 символов)");
+
+		}
+	}
 }

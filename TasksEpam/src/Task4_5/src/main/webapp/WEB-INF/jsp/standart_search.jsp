@@ -9,7 +9,9 @@
 <html>
 <head>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans&family=Roboto&display=swap');
+@import
+	url('https://fonts.googleapis.com/css2?family=Open+Sans&family=Roboto&display=swap')
+	;
 </style>
 <meta charset="utf-8">
 <title>Zapchasti</title>
@@ -36,27 +38,30 @@ input {
 	background-color: #058acc;
 }
 </style>
+<script defer src="resources/js/mask.js"></script>
+<script defer src="resources/js/main.js"></script>
 </head>
 
 <body>
 	<%@include file="header.jsp"%>
 
-<!-- Input Fields -->
+	<!-- Input Fields -->
 	<div class="lineconteiner" style="background-color: none; justify-content: center;">
 		<form action="Controller" method="post">
 			<input type="hidden" name="commandToController" value="STANDART_SEARCH" />
 			<div class="columnconteiner2string" style="float: left;">
 				<input type="hidden" name="commandToController" value="" />
-				<a style="color: white; ">Наименование запчасти</a>
+				<a style="color: white;">Наименование запчасти</a>
 				<input type="text" name="itemName" value="" placeholder="Введите наименование" />
 			</div>
 			<div class="columnconteiner2string" style="float: left;">
 				<a style="color: white;">Номенклатурный №</a>
 				<input type="text" name="nn" value="" placeholder="Введите номер" />
+				
 			</div>
 			<div class="columnconteiner2string" style="float: left;">
-				<a style="color: white;  ">№ SAP</a>
-				<input type="text" name="nnSap" value="" placeholder="Введите №SAP" />
+				<a style="color: white;">№ SAP</a>
+				<input type="text" data-mask="nn_mask" name="nnSap" value="" placeholder="Введите №SAP" />
 			</div>
 
 			<div class="columnconteiner2string" style="float: left;">
@@ -79,7 +84,7 @@ input {
 			<div class="columnconteiner" style="float: left;">
 				<a>№ Sap</a>
 			</div>
-		
+
 		</div>
 		<c:if test="${items_bd != null && items.size()!=0}">
 			<c:forEach var="item" items="${items_bd}">
@@ -93,7 +98,7 @@ input {
 					<div class="columnconteiner" style="float: left;">
 						<a>${item.getNnSap()}</a>
 					</div>
-					
+
 				</div>
 			</c:forEach>
 		</c:if>

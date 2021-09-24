@@ -25,8 +25,10 @@
 			<img alt="image" src="resources/pictures/oops_img.png" />
 
 			<h1 style="color: #45327d;">Что-то пошло не так...</h1>
-			<br /><br /><br /><br /><br /><br />
+			<br /><br /><br />
+			<a class="redmessage">${param.user_message}</a>
 			<a class="redmessage">${user_message}</a>
+			<br/><br/><br/>
 		</div>
 
 	</div>

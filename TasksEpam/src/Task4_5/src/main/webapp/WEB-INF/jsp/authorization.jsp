@@ -7,8 +7,7 @@
 <head>
 <style>
 @import
-	url('https://fonts.googleapis.com/css2?family=Open+Sans&family=Roboto&display=swap')
-	;
+	url('https://fonts.googleapis.com/css2?family=Open+Sans&family=Roboto&display=swap');
 </style>
 <meta charset="utf-8">
 <title>AUTHORIZATION_PAGE</title>
@@ -31,7 +30,7 @@
 		<form action="Controller" method="post" style="color: white">
 			<input type="hidden" name="commandToController" value="AUTHORIZATION" />
 
-			<input type="text" name="email" required pattern="^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)" title="text@text.2or3symbols" value=""
+			<input type="text" name="email" required pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$" title="text@text.2or3symbols" value=""
 				placeholder="Email" />
 			<input type="password" name="password" required pattern="^(?=^.{6,20}$)(?=.*[0-9])(?=.*[A-Za-zА-Яа-я!@#$%^&*?]).*$"
 				title="Пароль должен содержать минимум 6 символов, из них хотя бы одну цифру" value="" placeholder="Пароль" />
@@ -44,8 +43,8 @@
 		<br />
 		<br />
 		<br />
-		<br />
-		<a class="redmessage">${user_message}</a>
+		<a class="redmessage">${param.user_message}</a>
+		
 	</div>
 </body>
 </html>
