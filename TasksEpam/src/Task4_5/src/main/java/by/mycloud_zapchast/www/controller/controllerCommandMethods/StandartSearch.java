@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.sun.mail.handlers.message_rfc822;
+
 import by.mycloud_zapchast.www.controller.Command;
 import by.mycloud_zapchast.www.entity.AppSearchItem;
 import by.mycloud_zapchast.www.entity.StandartSearchItem;
@@ -23,29 +25,33 @@ public class StandartSearch implements Command {
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String path = "/WEB-INF/jsp/standart_search.jsp";
-		StandartSearchItem itemBd = new StandartSearchItem();
+		StandartSearchItem itemFromUI = new StandartSearchItem();
 		List<StandartSearchItem> standartSearchItemList = new ArrayList<StandartSearchItem>();
-		HttpSession session = request.getSession(true);
-		List<String> yearDb = new ArrayList();
+		String message=null;
 		String name = request.getParameter("itemName");
 		String nn = request.getParameter("nn");
 		String nnSap = request.getParameter("nnSap");
-		itemBd.setName(name);
-		itemBd.setNn(nn);
-		itemBd.setNnSap(nnSap);
-
+		itemFromUI.setName(name);
+		itemFromUI.setNn(nn);
+		itemFromUI.setNnSap(nnSap);
+		System.out.println("itemFromUI: "+itemFromUI);
+		//get from PageCounterFilter
+		Integer currentPageNumber=(Integer) request.getAttribute("currentPage");
 		try {
-			standartSearchItemList = ITEM_SERVICE.getStandartSearchItem(itemBd);
+			standartSearchItemList = ITEM_SERVICE.getStandartSearchItem(itemFromUI, currentPageNumber);
 		} catch (ServiceException e) {
 			path = "/WEB-INF/jsp/error.jsp";
-			System.out.println("message: " + e.getMessage());
+			message=e.getMessage();
 			e.printStackTrace();
+			request.setAttribute("user_message", message);
 			RequestDispatcher requestDispatcher = request.getRequestDispatcher(path);
 			requestDispatcher.forward(request, response);
+			return;
 		}
-		request.setAttribute("items_bd", standartSearchItemList);
+		
+		request.setAttribute("item_bd_list", standartSearchItemList);
+		request.setAttribute("item_search", itemFromUI);
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher(path);
 		requestDispatcher.forward(request, response);
 	}
-
 }

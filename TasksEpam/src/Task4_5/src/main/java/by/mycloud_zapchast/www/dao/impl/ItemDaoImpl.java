@@ -18,11 +18,11 @@ import by.mycloud_zapchast.www.entity.StandartSearchItem;
 import by.mycloud_zapchast.www.entity.User;
 
 public class ItemDaoImpl implements ItemDao {
-	private static final String TECHNICAL_MSG_SQL_EXCP="DAO: SQL EXCEPTION";
-	private static final String TECHNICAL_MSG_POOL_EXCP="DAO: POOL EXCEPTION";
-	private static final String TECHNICAL_MSG_SOME_UNEXPECTED_EXCP="DAO: SOME UNEXPECTED EXCEPTION";
-	private static final String USER_MSG_SQL_EXCP="У нас технические неполадки, попробуйте зайти на страницу через некоторое время";
-	
+	private static final String TECHNICAL_MSG_SQL_EXCP = "DAO: SQL EXCEPTION";
+	private static final String TECHNICAL_MSG_POOL_EXCP = "DAO: POOL EXCEPTION";
+	private static final String TECHNICAL_MSG_SOME_UNEXPECTED_EXCP = "DAO: SOME UNEXPECTED EXCEPTION";
+	private static final String USER_MSG_SQL_EXCP = "У нас технические неполадки, попробуйте зайти на страницу через некоторое время";
+
 	private static final String PARAM_USER_ID_SECTOR = "user.id_sector";
 	private static final String PARAM_USER_ID_USER = "user.id_user";
 	private static final String PARAM_TABLE_YEAR = "year.year";
@@ -93,18 +93,18 @@ public class ItemDaoImpl implements ItemDao {
 	}
 
 	@Override
-	public List<AppSearchItem> getAppSearchItem(AppSearchItem appSearchItem, User user) throws DAOException {
+	public List<AppSearchItem> getAppSearchItem(AppSearchItem appSearchItem, User user, Integer currentPage) throws DAOException {
 		String name = appSearchItem.getName();
 		String nn = appSearchItem.getNn();
 		String nnSap = appSearchItem.getNnSap();
 		String year = appSearchItem.getYear();
 		AppSearchItem appSearchItemBd = null;
-		System.out.println("appsearchItem= " + appSearchItem);
-		System.out.println("user= " + user);
+		
 		List<AppSearchItem> appSearchItemList = new ArrayList<AppSearchItem>();
-		System.out.println(SQL_GET_APP_SEARCH_ITEM);
+	
 		try (Connection connection = ItemConnectionPool.getInstance().takeConnection();
-				PreparedStatement pr = connection.prepareStatement(SQL_GET_APP_SEARCH_ITEM);) {
+				PreparedStatement pr = connection.prepareStatement(SQL_GET_APP_SEARCH_ITEM ,
+						ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);) {
 
 			pr.setString(1, "%" + nn + "%");
 			pr.setString(2, "%" + nnSap + "%");
@@ -116,7 +116,12 @@ public class ItemDaoImpl implements ItemDao {
 
 			ResultSet result = pr.executeQuery();
 
-			while (result.next()) {
+			result.absolute((currentPage - 1) * 30);
+
+			for (int i = 0; i < 30; i++) {
+				if (!result.next()) {
+					break;
+				}
 				appSearchItemBd = new AppSearchItem();
 				appSearchItemBd.setIdItem(result.getInt("id_item"));
 				appSearchItemBd.setName(result.getString("name"));
@@ -127,7 +132,7 @@ public class ItemDaoImpl implements ItemDao {
 				appSearchItemBd.setUnits(result.getString("units"));
 				appSearchItemBd.setYear(year);
 				appSearchItemList.add(appSearchItemBd);
-				System.out.println("Big sql request appSearchItem " + appSearchItemBd);
+				
 
 			}
 
@@ -204,7 +209,8 @@ public class ItemDaoImpl implements ItemDao {
 	}
 
 	@Override
-	public List<StandartSearchItem> getStandartSearchItem(StandartSearchItem standartSearchItem) throws DAOException {
+	public List<StandartSearchItem> getStandartSearchItem(StandartSearchItem standartSearchItem, Integer currentPage)
+			throws DAOException {
 		String name = standartSearchItem.getName();
 		String nn = standartSearchItem.getNn();
 		String nnSap = standartSearchItem.getNnSap();
@@ -213,13 +219,20 @@ public class ItemDaoImpl implements ItemDao {
 		List<StandartSearchItem> standartSearchItemList = new ArrayList<StandartSearchItem>();
 
 		try (Connection connection = ItemConnectionPool.getInstance().takeConnection();
-				PreparedStatement pr = connection.prepareStatement(SQL_GET_STANDART_SEARCH_ITEM);) {
+				PreparedStatement pr = connection.prepareStatement(SQL_GET_STANDART_SEARCH_ITEM,
+						ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);) {
 
 			pr.setString(1, "%" + nn + "%");
 			pr.setString(2, "%" + nnSap + "%");
 			pr.setString(3, "%" + name + "%");
 			ResultSet result = pr.executeQuery();
-			while (result.next()) {
+
+			result.absolute((currentPage - 1) * 30);
+
+			for (int i = 0; i < 30; i++) {
+				if (!result.next()) {
+					break;
+				}
 				standartSearchItemDb = new StandartSearchItem();
 				standartSearchItemDb.setIdItem(Integer.parseInt(result.getString(PARAM_ITEM_ID)));
 				standartSearchItemDb.setName(result.getString(PARAM_ITEM_NAME));
@@ -240,5 +253,85 @@ public class ItemDaoImpl implements ItemDao {
 			throw new DAOException(USER_MSG_SQL_EXCP, e);
 		}
 		return standartSearchItemList;
+	}
+
+	@Override
+	public Integer getStandartSearchItemMaxNumber(StandartSearchItem standartSearchItem) throws DAOException {
+		Integer numberRow = 0;
+
+		String name = standartSearchItem.getName();
+		String nn = standartSearchItem.getNn();
+		String nnSap = standartSearchItem.getNnSap();
+		StandartSearchItem standartSearchItemDb;
+
+		List<StandartSearchItem> standartSearchItemList = new ArrayList<StandartSearchItem>();
+
+		try (Connection connection = ItemConnectionPool.getInstance().takeConnection();
+				PreparedStatement pr = connection.prepareStatement(SQL_GET_STANDART_SEARCH_ITEM,
+						ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);) {
+
+			pr.setString(1, "%" + nn + "%");
+			pr.setString(2, "%" + nnSap + "%");
+			pr.setString(3, "%" + name + "%");
+			ResultSet result = pr.executeQuery();
+
+			result.last();
+			numberRow = result.getRow();
+			result.beforeFirst();
+
+		} catch (SQLException e) {
+			System.out.println(TECHNICAL_MSG_SQL_EXCP);
+			throw new DAOException(USER_MSG_SQL_EXCP, e);
+		} catch (ConnectionPoolException e) {
+			System.out.println(TECHNICAL_MSG_POOL_EXCP);
+			throw new DAOException(USER_MSG_SQL_EXCP, e);
+		} catch (Exception e) {
+			System.out.println(TECHNICAL_MSG_SOME_UNEXPECTED_EXCP);
+			throw new DAOException(USER_MSG_SQL_EXCP, e);
+		}
+
+		return numberRow;
+	}
+
+	@Override
+	public Integer getAppSearchItemMaxNumber(AppSearchItem appSearchItem, User user) throws DAOException {
+		String name = appSearchItem.getName();
+		String nn = appSearchItem.getNn();
+		String nnSap = appSearchItem.getNnSap();
+		String year = appSearchItem.getYear();
+		Integer numberRow= 1;
+		AppSearchItem appSearchItemBd = null;
+		
+		List<AppSearchItem> appSearchItemList = new ArrayList<AppSearchItem>();
+	
+		try (Connection connection = ItemConnectionPool.getInstance().takeConnection();
+				PreparedStatement pr = connection.prepareStatement(SQL_GET_APP_SEARCH_ITEM,
+						ResultSet.TYPE_SCROLL_INSENSITIVE,
+                        ResultSet.CONCUR_UPDATABLE);)  {
+
+			pr.setString(1, "%" + nn + "%");
+			pr.setString(2, "%" + nnSap + "%");
+			pr.setString(3, "%" + name + "%");
+			pr.setString(4, appSearchItem.getYear());
+			pr.setInt(5, user.getId_depo());
+			pr.setString(6, appSearchItem.getYear());
+			pr.setInt(7, user.getId_depo());
+
+			ResultSet result = pr.executeQuery();
+			result.last();
+			numberRow = result.getRow();
+			result.beforeFirst();
+			
+		} catch (SQLException e) {
+			System.out.println(TECHNICAL_MSG_SQL_EXCP);
+			throw new DAOException(USER_MSG_SQL_EXCP, e);
+		} catch (ConnectionPoolException e) {
+			System.out.println(TECHNICAL_MSG_POOL_EXCP);
+			throw new DAOException(USER_MSG_SQL_EXCP, e);
+		} catch (Exception e) {
+			System.out.println(TECHNICAL_MSG_SOME_UNEXPECTED_EXCP);
+			throw new DAOException(USER_MSG_SQL_EXCP, e);
+		}
+		return numberRow;
 	}
 }

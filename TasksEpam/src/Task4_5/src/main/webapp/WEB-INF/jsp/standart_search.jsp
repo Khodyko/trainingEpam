@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%@ page import="by.mycloud_zapchast.www.entity.User"%>
+<%@ page import="by.mycloud_zapchast.www.entity.StandartSearchItem"%>
 <%@ page import="java.util.ArrayList"%>
 <%@ page import="java.util.List"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -37,6 +38,8 @@ input {
 	font-size: 20px;
 	background-color: #058acc;
 }
+
+
 </style>
 <script defer src="resources/js/mask.js"></script>
 <script defer src="resources/js/main.js"></script>
@@ -57,7 +60,7 @@ input {
 			<div class="columnconteiner2string" style="float: left;">
 				<a style="color: white;">Номенклатурный №</a>
 				<input type="text" name="nn" value="" placeholder="Введите номер" />
-				
+
 			</div>
 			<div class="columnconteiner2string" style="float: left;">
 				<a style="color: white;">№ SAP</a>
@@ -86,8 +89,8 @@ input {
 			</div>
 
 		</div>
-		<c:if test="${items_bd != null && items.size()!=0}">
-			<c:forEach var="item" items="${items_bd}">
+		<c:if test="${item_bd_list != null && item_bd_list.size()!=0}">
+			<c:forEach var="item" items="${item_bd_list}">
 				<div class="shadowlineconteiner" style="background-color: none; justify-content: center;">
 					<div class="columnconteiner" style="float: left;">
 						<a>${item.getName()}</a>
@@ -102,7 +105,7 @@ input {
 				</div>
 			</c:forEach>
 		</c:if>
-		<c:if test="${items_bd == null || items.size()==0}">
+		<c:if test="${item_bd_list == null || item_bd_list.size()==0}">
 			<div class="shadowlineconteiner" style="background-color: none; justify-content: center;">
 				<div class="columnconteiner" style="float: left;">
 					<a>Ничего не найдено</a>
@@ -110,5 +113,32 @@ input {
 			</div>
 		</c:if>
 	</div>
+
+	<div class="pagination" style="width: 50%; margin: 0 auto; text-align: center;">
+		<c:if test="${pagesMaxNum>1}">
+
+			<a class="pagination_link"
+				href="Controller?commandToController=STANDART_SEARCH&currentPage=${currentPage-1}&itemName=${item_search.getName()}&nn=${item_search.getNn()}&nnSap=${item_search.getNnSap()}">&laquo;</a>
+			<c:forEach begin="${currentPage-10<1?1:currentPage-10}" end="${currentPage+10>pagesMaxNum?pagesMaxNum:currentPage+10}" varStatus="loop">
+
+				<c:if test="${loop.index != currentPage}">
+					<a class="pagination_link"
+						href="Controller?commandToController=STANDART_SEARCH&currentPage=${loop.index}&itemName=${item_search.getName()}&nn=${item_search.getNn()}&nnSap=${item_search.getNnSap()}">${loop.index}</a>
+				</c:if>
+				<c:if test="${loop.index == currentPage}">
+					<a class="active" href="#">${loop.index}</a>
+				</c:if>
+
+
+			</c:forEach>
+			<c:if test="${(pagesMaxNum)>currentPage}">
+				<a class="pagination_link"
+					href="Controller?commandToController=STANDART_SEARCH&currentPage=${currentPage+1}&itemName=${item_search.getName()}&nn=${item_search.getNn()}&nnSap=${item_search.getNnSap()}">&raquo;</a>
+			</c:if>
+		</c:if>
+	</div>
+
+
 </body>
+
 </html>

@@ -23,7 +23,7 @@ public class ApplicationSearch implements Command {
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String path = "/WEB-INF/jsp/application_search.jsp";
-		AppSearchItem itemBd = new AppSearchItem();
+		AppSearchItem itemFromUI = new AppSearchItem();
 		
 		List<AppSearchItem> AppSearchItemList=new ArrayList<AppSearchItem>();
 		HttpSession session = request.getSession(true);
@@ -33,14 +33,14 @@ public class ApplicationSearch implements Command {
 		String nn = request.getParameter("nn");
 		String nnSap = request.getParameter("nnSap");
 		String year = request.getParameter("year");
-		itemBd.setName(name);
-		itemBd.setNn(nn);
-		itemBd.setNnSap(nnSap);
-		itemBd.setYear(year);
-		
+		itemFromUI.setName(name);
+		itemFromUI.setNn(nn);
+		itemFromUI.setNnSap(nnSap);
+		itemFromUI.setYear(year);
+		Integer currentPageNumber=(Integer) request.getAttribute("currentPage");
 
 		try {
-			AppSearchItemList = ITEM_SERVICE.getAppSearchItem(itemBd, user);
+			AppSearchItemList = ITEM_SERVICE.getAppSearchItem(itemFromUI, user, currentPageNumber);
 		} catch (ServiceException e) {
 			System.out.println("message: " + e.getMessage());
 			e.printStackTrace();
@@ -54,7 +54,8 @@ public class ApplicationSearch implements Command {
 		}
 		System.out.println(AppSearchItemList);
 		request.setAttribute("yearsDb", yearDb);
-		request.setAttribute("items_bd", AppSearchItemList );
+		request.setAttribute("item_bd_list", AppSearchItemList );
+		request.setAttribute("item_search", itemFromUI);
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher(path);
 		requestDispatcher.forward(request, response);
 	}

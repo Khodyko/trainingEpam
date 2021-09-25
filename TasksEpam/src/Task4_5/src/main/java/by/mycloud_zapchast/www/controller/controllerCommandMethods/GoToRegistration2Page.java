@@ -30,6 +30,7 @@ public class GoToRegistration2Page implements Command {
 		Integer chosenDepo = null;
 		String writenName = null;
 		String writen2Name = null;
+	
 		try {
 			chosenDepo = Integer.parseInt(request.getParameter("depo"));
 

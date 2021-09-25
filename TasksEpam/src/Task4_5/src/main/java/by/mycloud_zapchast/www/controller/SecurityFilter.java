@@ -105,6 +105,7 @@ public class SecurityFilter implements Filter {
 		if( session==null || session.getAttribute("user_session")==null) {
 			if(withoutAuthorizationCommands.contains(commandName)) {
 				chain.doFilter(req, resp);
+				return;
 			}
 			else {message="У вас нет прав для перехода на эту страницу";
 			System.out.println("User went with Command "+commandName+" without rights. User: "+user);
@@ -134,6 +135,7 @@ public class SecurityFilter implements Filter {
 		allowedRolesForThisCommand=	allowedRoles.get(commandName);
 		if(allowedRolesForThisCommand.contains(userRole)) {
 			chain.doFilter(req, resp);
+			return;
 		}
 		else {
 			message="У вас нет прав для перехода на эту страницу";

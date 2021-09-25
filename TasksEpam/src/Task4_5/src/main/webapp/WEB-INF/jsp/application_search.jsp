@@ -9,12 +9,15 @@
 <html>
 <head>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans&family=Roboto&display=swap');
+@import
+	url('https://fonts.googleapis.com/css2?family=Open+Sans&family=Roboto&display=swap')
+	;
 </style>
 <meta charset="utf-8">
 <title>Поиск по годовым заявкам</title>
 <link rel="stylesheet" href="resources/css/property.css" type="text/css">
-<link rel="stylesheet" href="resources/css/header.css" type="text/css"><base>
+<link rel="stylesheet" href="resources/css/header.css" type="text/css">
+<base>
 <style type="text/css">
 input {
 	background-color: #058acc;
@@ -61,8 +64,8 @@ input {
 				<a style="color: white; margin-left: 5px;">№ SAP</a>
 				<input type="text" name="nnSap" value="" placeholder="Введите №SAP" />
 			</div>
-			
-				<div class="columnconteiner2string" style="float: left;">
+
+			<div class="columnconteiner2string" style="float: left;">
 				<a style="color: white; margin-left: 5px;">Год</a>
 				<select name="year" style="border: none; border-radius: 9px; width: 200px; height: 40px; color: #809EAE; padding-left: 15px;">
 
@@ -75,7 +78,7 @@ input {
 				</select>
 			</div>
 
-			
+
 
 			<div class="columnconteiner2string" style="float: left;">
 				<button style="color: #FFB74E; align-item: center; border-radius: 20px; height: 40px; margin-top: 18px;">
@@ -101,8 +104,8 @@ input {
 				<a>Заявлено/После урезания</a>
 			</div>
 		</div>
-		<c:if test="${items_bd != null && items_bd.size()!=0}">
-			<c:forEach var="item" items="${items_bd}">
+		<c:if test="${item_bd_list!= null && item_bd_list.size()!=0}">
+			<c:forEach var="item" items="${item_bd_list}">
 				<div class="shadowlineconteiner" style="background-color: none; justify-content: center;">
 					<div class="columnconteiner" style="float: left;">
 						<a>${item.getName()}</a>
@@ -114,12 +117,12 @@ input {
 						<a>${item.getNnSap()}</a>
 					</div>
 					<div class="columnconteiner" style="float: left;">
-						<a>${ item.getSectorsSummApplication()}/${ item.getDepoFinalApplication() }   ${ item.getUnits() }</a>
+						<a>${ item.getSectorsSummApplication()}/${ item.getDepoFinalApplication() } ${ item.getUnits() }</a>
 					</div>
 				</div>
 			</c:forEach>
 		</c:if>
-		<c:if test="${items_bd == null || items_bd.size()==0}">
+		<c:if test="${item_bd_list == null || item_bd_list.size()==0}">
 			<div class="shadowlineconteiner" style="background-color: none; justify-content: center;">
 				<div class="columnconteiner" style="float: left;">
 					<a>Ничего не найдено</a>
@@ -127,5 +130,30 @@ input {
 			</div>
 		</c:if>
 	</div>
+
+	<div class="pagination" style="width: 50%; margin: 0 auto; text-align: center;">
+		<c:if test="${pagesMaxNum>1}">
+
+			<a class="pagination_link"
+				href="Controller?commandToController=APPLICATION_SEARCH&currentPage=${currentPage-1}&itemName=${item_search.getName()}&nn=${item_search.getNn()}&nnSap=${item_search.getNnSap()}&year=${item_search.getYear()}">&laquo;</a>
+			<c:forEach begin="${currentPage-10<1?1:currentPage-10}" end="${currentPage+10>pagesMaxNum?pagesMaxNum:currentPage+10}" varStatus="loop">
+
+				<c:if test="${loop.index != currentPage}">
+					<a class="pagination_link"
+						href="Controller?commandToController=APPLICATION_SEARCH&currentPage=${loop.index}&itemName=${item_search.getName()}&nn=${item_search.getNn()}&nnSap=${item_search.getNnSap()}&year=${item_search.getYear()}">${loop.index}</a>
+				</c:if>
+				<c:if test="${loop.index == currentPage}">
+					<a class="active" href="#">${loop.index}</a>
+				</c:if>
+
+
+			</c:forEach>
+			<c:if test="${(pagesMaxNum)>currentPage}">
+				<a class="pagination_link"
+					href="Controller?commandToController=APPLICATION_SEARCH&currentPage=${currentPage+1}&itemName=${item_search.getName()}&nn=${item_search.getNn()}&nnSap=${item_search.getNnSap()}&year=${item_search.getYear()}">&raquo;</a>
+			</c:if>
+		</c:if>
+	</div>
+
 </body>
 </html>

@@ -11,8 +11,7 @@
 <head>
 <style>
 @import
-	url('https://fonts.googleapis.com/css2?family=Open+Sans&family=Roboto&display=swap')
-	;
+	url('https://fonts.googleapis.com/css2?family=Open+Sans&family=Roboto&display=swap');
 </style>
 <meta charset="utf-8">
 <title>Zapchasti</title>

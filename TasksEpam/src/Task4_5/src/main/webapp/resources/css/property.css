@@ -144,3 +144,46 @@ button {
 	text-align: center;
 }
 .redmessage{color:red;}
+
+
+.pagination {
+	margin: 20px;
+	margin-left: 0px;
+	margin-right: 0px;
+	margin-bottom: 30px;
+	height: 50px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: white;
+	text-decoration: none;
+	width: 60%;
+	font-size: 20px;
+}
+
+.pagination_link {
+	margin: 20px;
+	margin-left: 10px;
+	margin-right: 0px;
+	color: white;
+	text-decoration: none;
+	margin-bottom: 30px;
+	font-size: 20px;
+}
+
+.pagination a:hover:not(.active) {
+	background-color: #ddd;
+}
+
+.pagination a.active {
+	background-color: #003a5e;
+	color: white;
+	margin: 20px;
+	margin-left: 10px;
+	margin-right: 0px;
+	margin-bottom: 30px;
+	text-decoration: none;
+	font-size: 20px;
+}
+
+

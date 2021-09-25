@@ -32,10 +32,10 @@ public class ItemServiceImpl implements ItemService {
 	}
 
 	@Override
-	public List<AppSearchItem> getAppSearchItem(AppSearchItem appSearchItem, User user) throws ServiceException {
+	public List<AppSearchItem> getAppSearchItem(AppSearchItem appSearchItem, User user,  Integer currentPageNumber) throws ServiceException {
 		List<AppSearchItem> appSearchItemList;
 		try {
-			appSearchItemList = ITEM_DAO.getAppSearchItem(appSearchItem, user);
+			appSearchItemList = ITEM_DAO.getAppSearchItem(appSearchItem, user,  currentPageNumber);
 			return appSearchItemList;
 		} catch (DAOException e) {
 			throw new ServiceException(e.getMessage(), e);
@@ -68,11 +68,11 @@ public class ItemServiceImpl implements ItemService {
 	}
 
 	@Override
-	public List<StandartSearchItem> getStandartSearchItem(StandartSearchItem standartSearchItem)
+	public List<StandartSearchItem> getStandartSearchItem(StandartSearchItem standartSearchItem, Integer currentPage)
 			throws ServiceException {
 		List<StandartSearchItem> standartSearchItemList;
 		try {
-			standartSearchItemList = ITEM_DAO.getStandartSearchItem(standartSearchItem);
+			standartSearchItemList = ITEM_DAO.getStandartSearchItem(standartSearchItem, currentPage);
 			return standartSearchItemList;
 		} catch (DAOException e) {
 			throw new ServiceException(e.getMessage(), e);
@@ -82,5 +82,29 @@ public class ItemServiceImpl implements ItemService {
 		if (value == null || value.trim().isBlank()) {
 			throw new ServiceException(name + " не должен быть пустым");
 		}
+	}
+
+	@Override
+	public Integer getStandartSearchItemMaxNumber(StandartSearchItem itemBd) throws ServiceException {
+		Integer standartSearchItemMaxNumber=null;
+		try {
+		standartSearchItemMaxNumber=ITEM_DAO.getStandartSearchItemMaxNumber(itemBd);
+		} catch (DAOException e) {
+			throw new ServiceException(e.getMessage(), e);
+		}
+		
+		return standartSearchItemMaxNumber;
+	}
+
+	@Override
+	public Integer getAppSearchItemMaxNumber(AppSearchItem itemBd, User user) throws ServiceException {
+		Integer AppSearchItemMaxNumber=null;
+		try {
+		AppSearchItemMaxNumber=ITEM_DAO.getAppSearchItemMaxNumber(itemBd, user);
+		} catch (DAOException e) {
+			throw new ServiceException(e.getMessage(), e);
+		}
+		return AppSearchItemMaxNumber;
+				
 	}
 }
