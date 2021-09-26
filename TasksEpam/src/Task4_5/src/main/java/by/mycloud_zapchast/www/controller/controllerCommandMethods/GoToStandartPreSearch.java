@@ -4,6 +4,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import by.mycloud_zapchast.www.controller.Command;
 import by.mycloud_zapchast.www.service.ItemService;
 import by.mycloud_zapchast.www.service.ServiceProvider;
@@ -19,7 +22,7 @@ public class GoToStandartPreSearch implements Command {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String path = "/WEB-INF/jsp/standart_pre_search.jsp";
+		String path = "/WEB-INF/jsp/standart_pre_search.jsp";		
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher(path);
 		requestDispatcher.forward(request, response);
 	}

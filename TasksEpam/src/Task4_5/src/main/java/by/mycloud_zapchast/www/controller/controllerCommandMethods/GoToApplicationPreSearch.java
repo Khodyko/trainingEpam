@@ -4,6 +4,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import by.mycloud_zapchast.www.controller.Command;
 import by.mycloud_zapchast.www.service.ItemService;
 import by.mycloud_zapchast.www.service.ServiceProvider;
@@ -17,20 +20,23 @@ import jakarta.servlet.http.HttpSession;
 public class GoToApplicationPreSearch implements Command {
 	private static final ServiceProvider PROVIDER = ServiceProvider.getInstance();
 	private static final ItemService ITEM_SERVICE = PROVIDER.getItemService();
-	
+	private static final Logger LOGGER=LogManager.getLogger();
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String path = "/WEB-INF/jsp/application_pre_search.jsp";
 		HttpSession session = request.getSession(true);
 		List<String> yearDb = new ArrayList();
-		
+		String message=null;
 		try {
 			yearDb = ITEM_SERVICE.getYears();
 		} catch (Exception e) {
-			System.out.println("message: " + e.getMessage());
-			e.printStackTrace();
-			
+			path = "/WEB-INF/jsp/error.jsp";
+			message=e.getMessage();
+			LOGGER.warn("command " +request.getAttribute("commandToController")+" "+e.getStackTrace());
+			request.setAttribute("user_message", message);
+			RequestDispatcher requestDispatcher = request.getRequestDispatcher(path);
+			requestDispatcher.forward(request, response);
 		}
 		
 		

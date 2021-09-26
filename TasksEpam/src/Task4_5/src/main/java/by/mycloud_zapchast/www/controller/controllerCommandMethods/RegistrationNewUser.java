@@ -4,6 +4,9 @@ import java.io.IOException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import by.mycloud_zapchast.www.controller.Command;
 import by.mycloud_zapchast.www.entity.RegistrationInfo;
 import by.mycloud_zapchast.www.entity.User;
@@ -19,7 +22,8 @@ import jakarta.servlet.http.HttpServletResponse;
 public class RegistrationNewUser implements Command {
 	private static final ServiceProvider PROVIDER = ServiceProvider.getInstance();
 	private static final UserService USER_SERVICE = PROVIDER.getUserService();
-
+	private static final Logger LOGGER=LogManager.getLogger();
+	
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String path = "GO_TO_AUTHORIZATION_PAGE";
@@ -43,6 +47,7 @@ public class RegistrationNewUser implements Command {
 			message = "предприятие не выбрано";
 			path = "/WEB-INF/jsp/registration1.jsp";
 			request.setAttribute("user_message", message);
+			LOGGER.warn("command " +request.getAttribute("commandToController")+" "+e.getStackTrace());
 			RequestDispatcher requestDispatcher = request.getRequestDispatcher(path);
 			requestDispatcher.forward(request, response);
 			return;
@@ -53,6 +58,7 @@ public class RegistrationNewUser implements Command {
 			path = "/WEB-INF/jsp/registration2.jsp";
 			message = "сектор не выбран";
 			request.setAttribute("user_message", message);
+			LOGGER.warn("command " +request.getAttribute("commandToController")+" "+e.getStackTrace());
 			RequestDispatcher requestDispatcher = request.getRequestDispatcher(path);
 			requestDispatcher.forward(request, response);
 			return;
@@ -69,6 +75,7 @@ public class RegistrationNewUser implements Command {
 			path = "/WEB-INF/jsp/registration2.jsp";
 			message = e.getMessage();
 			request.setAttribute("user_message", message);
+			LOGGER.warn("command " +request.getAttribute("commandToController")+" "+e.getStackTrace());
 			RequestDispatcher requestDispatcher = request.getRequestDispatcher(path);
 			requestDispatcher.forward(request, response);
 			return;

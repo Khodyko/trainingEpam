@@ -6,4 +6,5 @@ public class DBItemParameter {
 	public static final String DB_ITEM_USER = "db.user";
 	public static final String DB_ITEM_PASSWORD = "db.password";
 	public static final String DB_ITEM_POOLSIZE = "db.poolsize";
+	public static final String DB_ITEM_VALIDATION_CONNECTION_TIME_OUT ="db.timeout";
 }

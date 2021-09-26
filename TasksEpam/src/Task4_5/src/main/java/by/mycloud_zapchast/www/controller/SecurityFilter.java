@@ -6,6 +6,9 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import by.mycloud_zapchast.www.entity.User;
 import by.mycloud_zapchast.www.entity.UserRole;
 import jakarta.servlet.Filter;
@@ -23,6 +26,7 @@ public class SecurityFilter implements Filter {
 	private static final Map<CommandName, Set<UserRole>> allowedRoles=new HashMap<>();
 //	private static final Map<CommandName, Set<UserRole>> noneAllowedRoles=new HashMap<>();
 	private static final String COMMAND_TO_CONTROLLER = "commandToController";
+	private static final Logger LOGGER=LogManager.getLogger();
 	static {
 		Set<UserRole> adminSet=new HashSet<>();
 		adminSet.add(UserRole.valueOf("ADMIN"));
@@ -58,13 +62,6 @@ public class SecurityFilter implements Filter {
 		withoutAuthorizationCommands.add(CommandName.GO_TO_REGISTRATION_1_PAGE);
 		withoutAuthorizationCommands.add(CommandName.REGISTRATION_NEW_USER);
 		withoutAuthorizationCommands.add(CommandName.GO_TO_AUTHORIZATION_PAGE);
-		
-		
-//		GO_TO_STANDART_PRE_SEARCH, ERROR_PAGE, STANDART_SEARCH, GO_TO_DOCUMENTATION, GO_TO_REGISTRATION_1_PAGE,
-//		GO_TO_REGISTRATION_2_PAGE, REGISTRATION_NEW_USER, AUTHORIZATION, GO_TO_AUTHORIZATION_PAGE,
-//		GO_TO_APPLICATION_PRE_SEARCH, APPLICATION_SEARCH, SIGN_OUT
-//		
-		//need finish!!!!!!!!!!!!!!!!!!!!
 	}
 	
 
@@ -84,6 +81,7 @@ public class SecurityFilter implements Filter {
 		// Command is not valid
 		if (reqCommandName == null) {
 			path= "/WEB-INF/jsp/error.jsp";
+			LOGGER.warn("SecurityFilter:  request command Name is null");
 			RequestDispatcher requestDispatcher=request.getRequestDispatcher(path);
 			requestDispatcher.forward(req, resp);
 			return;
@@ -94,6 +92,7 @@ public class SecurityFilter implements Filter {
 			commandName = CommandName.valueOf(reqCommandName.toUpperCase());
 		} catch (IllegalArgumentException e) { // logging
 			path=path = "/WEB-INF/jsp/error.jsp";
+			LOGGER.warn("SecurityFilter:  request command Name is not valid");
 			RequestDispatcher requestDispatcher=request.getRequestDispatcher(path);
 			requestDispatcher.forward(req, resp);
 			return;
@@ -108,8 +107,8 @@ public class SecurityFilter implements Filter {
 				return;
 			}
 			else {message="У вас нет прав для перехода на эту страницу";
-			System.out.println("User went with Command "+commandName+" without rights. User: "+user);
-			path=path = "/WEB-INF/jsp/error.jsp";
+			LOGGER.warn("User went with Command "+commandName+" without rights. User: "+user);
+			path= "/WEB-INF/jsp/error.jsp";
 			req.setAttribute("user_message", message);
 			RequestDispatcher requestDispatcher=request.getRequestDispatcher(path);
 			requestDispatcher.forward(req, resp);
@@ -122,9 +121,9 @@ public class SecurityFilter implements Filter {
 			userRole=user.getRole();
 			}catch (NullPointerException e) {
 				message="У вас нет прав для работы в этом аккаунте, пожалуйста обратитесь к тех. поддержке или заведите новый аккаунт";
-				System.out.println("There are user without Role. User:" +user);
+				LOGGER.warn("SecurityFilter:  There are user without Role. User:" +user);
 				e.printStackTrace();
-				path=path = "/WEB-INF/jsp/error.jsp";
+				path = "/WEB-INF/jsp/error.jsp";
 				req.setAttribute("user_message", message);
 				RequestDispatcher requestDispatcher=request.getRequestDispatcher(path);
 				requestDispatcher.forward(req, resp);
@@ -139,8 +138,8 @@ public class SecurityFilter implements Filter {
 		}
 		else {
 			message="У вас нет прав для перехода на эту страницу";
-			System.out.println("User went with Command "+commandName+" without rights. User: "+user);
-			path=path = "/WEB-INF/jsp/error.jsp";
+			LOGGER.warn("SecurityFilter:  User went with Command "+commandName+" without rights. User: "+user);
+			path= "/WEB-INF/jsp/error.jsp";
 			req.setAttribute("user_message", message);
 			RequestDispatcher requestDispatcher=request.getRequestDispatcher(path);
 			requestDispatcher.forward(req, resp);

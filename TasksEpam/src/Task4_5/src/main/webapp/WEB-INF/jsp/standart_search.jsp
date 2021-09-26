@@ -38,8 +38,6 @@ input {
 	font-size: 20px;
 	background-color: #058acc;
 }
-
-
 </style>
 <script defer src="resources/js/mask.js"></script>
 <script defer src="resources/js/main.js"></script>
@@ -116,9 +114,10 @@ input {
 
 	<div class="pagination" style="width: 50%; margin: 0 auto; text-align: center;">
 		<c:if test="${pagesMaxNum>1}">
-
-			<a class="pagination_link"
-				href="Controller?commandToController=STANDART_SEARCH&currentPage=${currentPage-1}&itemName=${item_search.getName()}&nn=${item_search.getNn()}&nnSap=${item_search.getNnSap()}">&laquo;</a>
+			<c:if test="${currentPage>1}">
+				<a class="pagination_link"
+					href="Controller?commandToController=STANDART_SEARCH&currentPage=${currentPage-1}&itemName=${item_search.getName()}&nn=${item_search.getNn()}&nnSap=${item_search.getNnSap()}">&laquo;</a>
+			</c:if>
 			<c:forEach begin="${currentPage-10<1?1:currentPage-10}" end="${currentPage+10>pagesMaxNum?pagesMaxNum:currentPage+10}" varStatus="loop">
 
 				<c:if test="${loop.index != currentPage}">

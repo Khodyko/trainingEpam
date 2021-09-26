@@ -4,6 +4,9 @@ import java.io.IOException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import by.mycloud_zapchast.www.controller.Command;
 import by.mycloud_zapchast.www.entity.User;
 import by.mycloud_zapchast.www.service.ServiceException;
@@ -17,6 +20,7 @@ import jakarta.servlet.http.HttpSession;
 public class Authorization implements Command {
 	private static final ServiceProvider PROVIDER = ServiceProvider.getInstance();
 	private static final UserService USER_SERVICE = PROVIDER.getUserService();
+	private static final Logger LOGGER=LogManager.getLogger();
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -34,7 +38,7 @@ public class Authorization implements Command {
 		} catch (ServiceException e) {
 			message = e.getMessage();
 			e.printStackTrace(); // logger
-			
+			LOGGER.warn("command " +request.getAttribute("commandToController")+" "+e.getStackTrace());
 			
 			path = "GO_TO_AUTHORIZATION_PAGE";
 			

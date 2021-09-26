@@ -5,6 +5,9 @@ import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import by.mycloud_zapchast.www.controller.Command;
 import by.mycloud_zapchast.www.entity.Sector;
 import by.mycloud_zapchast.www.service.ItemService;
@@ -21,7 +24,7 @@ public class GoToRegistration2Page implements Command {
 	private static final ServiceProvider PROVIDER = ServiceProvider.getInstance();
 	private static final ItemService ITEM_SERVICE = PROVIDER.getItemService();
 	private static final UserService USER_SERVICE = PROVIDER.getUserService();
-
+	private static final Logger LOGGER=LogManager.getLogger();
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String message = null;
@@ -37,6 +40,7 @@ public class GoToRegistration2Page implements Command {
 		} catch (NumberFormatException e) {
 			path = "GO_TO_REGISTRATION_1_PAGE";
 			message = "Выберите предприятие";
+			LOGGER.warn("command " +request.getAttribute("commandToController")+" "+e.getStackTrace());
 			response.sendRedirect("Controller?commandToController=" + path + "&user_message=" + encodeUTF8(message));
 			return;
 		}
@@ -50,7 +54,7 @@ public class GoToRegistration2Page implements Command {
 		} catch (ServiceException e) {
 			path = "/WEB-INF/jsp/registration1.jsp";
 			message = e.getMessage();
-			e.printStackTrace(); // logger
+			LOGGER.warn("command " +request.getAttribute("commandToController")+" "+e.getStackTrace());
 			request.setAttribute("user_message", message);
 			RequestDispatcher requestDispatcher = request.getRequestDispatcher(path);
 			requestDispatcher.forward(request, response);
@@ -61,7 +65,7 @@ public class GoToRegistration2Page implements Command {
 		} catch (ServiceException e) {
 			path = "ERROR_PAGE";
 			message = e.getMessage();
-			e.printStackTrace(); // logger
+			LOGGER.warn("command " +request.getAttribute("commandToController")+" "+e.getStackTrace());
 			response.sendRedirect("Controller?commandToController=" + path + "&user_message=" + encodeUTF8(message));
 			return;
 		}

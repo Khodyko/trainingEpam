@@ -2,6 +2,9 @@ package by.mycloud_zapchast.www.controller;
 
 import java.io.IOException;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import by.mycloud_zapchast.www.entity.AppSearchItem;
 import by.mycloud_zapchast.www.entity.StandartSearchItem;
 import by.mycloud_zapchast.www.entity.User;
@@ -22,7 +25,7 @@ public class PageCounterFilter implements Filter {
 	private static final String COMMAND_TO_CONTROLLER = "commandToController";
 	private static final ServiceProvider PROVIDER = ServiceProvider.getInstance();
 	private static final ItemService ITEM_SERVICE = PROVIDER.getItemService();
-
+	private static final Logger LOGGER=LogManager.getLogger();
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
@@ -50,7 +53,7 @@ public class PageCounterFilter implements Filter {
 			} catch (ServiceException e) {
 				path = "/WEB-INF/jsp/error.jsp";
 				message = e.getMessage();
-				e.printStackTrace();
+				LOGGER.warn("PageCounterFilter "+e.getStackTrace());
 				request.setAttribute("user_message", message);
 				RequestDispatcher requestDispatcher = request.getRequestDispatcher(path);
 				requestDispatcher.forward(request, response);
@@ -88,7 +91,7 @@ public class PageCounterFilter implements Filter {
 			} catch (ServiceException e) {
 				path = "/WEB-INF/jsp/error.jsp";
 				message = e.getMessage();
-				e.printStackTrace();
+				LOGGER.warn("PageCounterFilter "+e.getStackTrace());
 				request.setAttribute("user_message", message);
 				RequestDispatcher requestDispatcher = request.getRequestDispatcher(path);
 				requestDispatcher.forward(request, response);

@@ -133,9 +133,10 @@ input {
 
 	<div class="pagination" style="width: 50%; margin: 0 auto; text-align: center;">
 		<c:if test="${pagesMaxNum>1}">
-
-			<a class="pagination_link"
-				href="Controller?commandToController=APPLICATION_SEARCH&currentPage=${currentPage-1}&itemName=${item_search.getName()}&nn=${item_search.getNn()}&nnSap=${item_search.getNnSap()}&year=${item_search.getYear()}">&laquo;</a>
+			<c:if test="${currentPage>1}">
+				<a class="pagination_link"
+					href="Controller?commandToController=APPLICATION_SEARCH&currentPage=${currentPage-1}&itemName=${item_search.getName()}&nn=${item_search.getNn()}&nnSap=${item_search.getNnSap()}&year=${item_search.getYear()}">&laquo;</a>
+			</c:if>
 			<c:forEach begin="${currentPage-10<1?1:currentPage-10}" end="${currentPage+10>pagesMaxNum?pagesMaxNum:currentPage+10}" varStatus="loop">
 
 				<c:if test="${loop.index != currentPage}">

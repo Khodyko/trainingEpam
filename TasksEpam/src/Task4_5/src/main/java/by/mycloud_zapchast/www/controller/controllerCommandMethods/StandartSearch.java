@@ -4,6 +4,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.sun.mail.handlers.message_rfc822;
 
 import by.mycloud_zapchast.www.controller.Command;
@@ -21,7 +24,7 @@ import jakarta.servlet.http.HttpSession;
 public class StandartSearch implements Command {
 	private static final ServiceProvider PROVIDER = ServiceProvider.getInstance();
 	private static final ItemService ITEM_SERVICE = PROVIDER.getItemService();
-
+	private static final Logger LOGGER=LogManager.getLogger();
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String path = "/WEB-INF/jsp/standart_search.jsp";
@@ -42,7 +45,7 @@ public class StandartSearch implements Command {
 		} catch (ServiceException e) {
 			path = "/WEB-INF/jsp/error.jsp";
 			message=e.getMessage();
-			e.printStackTrace();
+			LOGGER.warn("command " +request.getAttribute("commandToController")+" "+e.getStackTrace());
 			request.setAttribute("user_message", message);
 			RequestDispatcher requestDispatcher = request.getRequestDispatcher(path);
 			requestDispatcher.forward(request, response);

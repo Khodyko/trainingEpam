@@ -1,7 +1,7 @@
 package by.mycloud_zapchast.www.service;
 
 public class ServiceException extends Exception {
-	private static final long serialVersionUID = -5582152432927044124L;
+	private static final long serialVersionUID = 1L;
 	private String message="";
 	
 	public String getMessage() {

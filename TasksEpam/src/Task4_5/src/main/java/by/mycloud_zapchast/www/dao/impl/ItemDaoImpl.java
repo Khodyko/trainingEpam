@@ -132,8 +132,6 @@ public class ItemDaoImpl implements ItemDao {
 				appSearchItemBd.setUnits(result.getString("units"));
 				appSearchItemBd.setYear(year);
 				appSearchItemList.add(appSearchItemBd);
-				
-
 			}
 
 		} catch (SQLException e) {
