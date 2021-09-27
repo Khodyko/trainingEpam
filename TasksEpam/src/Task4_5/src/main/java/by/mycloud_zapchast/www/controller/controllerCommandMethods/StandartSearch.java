@@ -60,9 +60,11 @@ public class StandartSearch implements Command {
 			requestDispatcher.forward(request, response);
 			return;
 		}
-
+		/**Set searching item list*/
 		request.setAttribute("item_bd_list", standartSearchItemList);
+		/**Repeat use of searching data in pagination*/
 		request.setAttribute("item_search", itemFromUI);
+		/**Go to standart_page.jsp*/
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher(path);
 		requestDispatcher.forward(request, response);
 	}

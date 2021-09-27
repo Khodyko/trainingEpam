@@ -82,10 +82,12 @@ public class ApplicationSearch implements Command {
 			requestDispatcher.forward(request, response);
 			return;
 		}
+		
 		request.setAttribute("item_bd_list", AppSearchItemList);
-		/** (all the params throws one more time for pagination working) */
+		/**Repeat use of searching data in pagination*/
 		request.setAttribute("yearsDb", yearDb);
 		request.setAttribute("item_search", itemFromUI);
+
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher(path);
 		/** Go into application_search.jsp */
 		requestDispatcher.forward(request, response);

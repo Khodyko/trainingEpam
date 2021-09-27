@@ -9,7 +9,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 /**
- * Sign out of profile.
+ * Sign out profile.
  * 
  * @author Vitamin_XO
  *
