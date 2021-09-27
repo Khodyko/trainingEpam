@@ -8,6 +8,12 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
+/**
+ * Documentation is not realised yet
+ * @author Vitamin_XO
+ *
+ */
+
 public class GoToDocumentation implements Command {
 
 	@Override

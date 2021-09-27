@@ -17,36 +17,41 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
+/**
+ * 	Authorization by Email and Password
+ * @author Vitamin_XO
+ */
 public class Authorization implements Command {
 	private static final ServiceProvider PROVIDER = ServiceProvider.getInstance();
 	private static final UserService USER_SERVICE = PROVIDER.getUserService();
-	private static final Logger LOGGER=LogManager.getLogger();
+	private static final Logger LOGGER = LogManager.getLogger();
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String path = "GO_TO_STANDART_PRE_SEARCH";
+		String message = null;
+		String encodedMessage = null;
+		HttpSession session = request.getSession(true);
+
+		/** Get written email and password */
 		final String WRITEN_EMAIL = request.getParameter("email");
 		final String WRITEN_PASSWORD = request.getParameter("password");
-		String message=null;
-		String encodedMessage=null;
-		HttpSession session = request.getSession(true);
-		System.out.println(WRITEN_EMAIL+" "+WRITEN_PASSWORD);
+
 		try {
+			/** get user, if data is valid */
 			User user = USER_SERVICE.authorizeUser(WRITEN_EMAIL, WRITEN_PASSWORD);
+			/** realize authorization */
 			session.setAttribute("user_session", user);
-			System.out.println(user);
+
 		} catch (ServiceException e) {
 			message = e.getMessage();
-			e.printStackTrace(); // logger
-			LOGGER.warn("command " +request.getAttribute("commandToController")+" "+e.getStackTrace());
-			
+			LOGGER.warn("command " + request.getAttribute("commandToController") + " " + e.getStackTrace());
 			path = "GO_TO_AUTHORIZATION_PAGE";
-			
-			encodedMessage= URLEncoder.encode(message, StandardCharsets.UTF_8);
-			response.sendRedirect("Controller?commandToController=" + path+"&user_message="+encodedMessage);
+			encodedMessage = URLEncoder.encode(message, StandardCharsets.UTF_8);
+			response.sendRedirect("Controller?commandToController=" + path + "&user_message=" + encodedMessage);
 			return;
 		}
-
+		/** Go to standart pre search page */
 		response.sendRedirect("Controller?commandToController=" + path);
 	}
 

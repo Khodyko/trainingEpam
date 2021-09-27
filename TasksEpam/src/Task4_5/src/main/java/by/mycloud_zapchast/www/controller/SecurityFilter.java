@@ -47,7 +47,7 @@ public class SecurityFilter implements Filter {
 		allowedRoles.put(CommandName.GO_TO_STANDART_PRE_SEARCH, userSet);
 		allowedRoles.put(CommandName.ERROR_PAGE, userSet);
 		allowedRoles.put(CommandName.STANDART_SEARCH, userSet);
-		allowedRoles.put(CommandName.GO_TO_DOCUMENTATION, adminSet);
+		allowedRoles.put(CommandName.GO_TO_DOCUMENTATION, userSet);
 		allowedRoles.put(CommandName.GO_TO_APPLICATION_PRE_SEARCH, userSet);
 		allowedRoles.put(CommandName.APPLICATION_SEARCH, userSet);
 		allowedRoles.put(CommandName.SIGN_OUT, userSet);

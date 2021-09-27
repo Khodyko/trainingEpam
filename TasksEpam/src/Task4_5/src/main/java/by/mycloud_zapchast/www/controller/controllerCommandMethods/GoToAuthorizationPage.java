@@ -8,7 +8,10 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-
+/**
+ * 	The enter-command of this application.
+ * @author Vitamin_XO
+ */
 public class GoToAuthorizationPage implements Command {
 
 	@Override

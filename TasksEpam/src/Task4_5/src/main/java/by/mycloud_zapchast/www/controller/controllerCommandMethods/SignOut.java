@@ -8,14 +8,21 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-
+/**
+ * Sign out of profile.
+ * 
+ * @author Vitamin_XO
+ *
+ */
 public class SignOut implements Command {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String path = "/WEB-INF/jsp/authorization.jsp";
 		HttpSession session=request.getSession(true);
+		
 		session.removeAttribute("user_session");
+		
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher(path);
 		requestDispatcher.forward(request, response);
 		

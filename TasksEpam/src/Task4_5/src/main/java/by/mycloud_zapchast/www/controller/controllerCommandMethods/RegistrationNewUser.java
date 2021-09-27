@@ -19,6 +19,12 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
+
+/**
+ * Final registration
+ * @author Vitamin_XO
+ *
+ */
 public class RegistrationNewUser implements Command {
 	private static final ServiceProvider PROVIDER = ServiceProvider.getInstance();
 	private static final UserService USER_SERVICE = PROVIDER.getUserService();
@@ -35,11 +41,11 @@ public class RegistrationNewUser implements Command {
 		Integer nameDepo = null;
 		String role = null;
 		Integer sector = null;
+		/** Get params from UI		 */
 		name = request.getParameter("name");
 		secondName = request.getParameter("second_name");
 		email = request.getParameter("email");
 		password = request.getParameter("password");
-		
 		role = "user";
 		try {
 			nameDepo = Integer.parseInt(request.getParameter("depo"));
@@ -64,11 +70,11 @@ public class RegistrationNewUser implements Command {
 			return;
 		}
 		
-		
+		/**Set all params to RegistrationInfo entity*/
 		RegistrationInfo registrationInfo = new RegistrationInfo(name, secondName, password, role, email, nameDepo,
 				sector);
 		try {
-			
+			/**Send to validate and register*/
 			USER_SERVICE.registerUser(registrationInfo);
 
 		} catch (ServiceException e) {
@@ -80,9 +86,11 @@ public class RegistrationNewUser implements Command {
 			requestDispatcher.forward(request, response);
 			return;
 		}
-
+		/**Go into authorization.jsp*/
 		response.sendRedirect("Controller?commandToController=" + path);
 	}
+	
+	/**encoder*/
 	public String encodeUTF8(String message) {
 		return URLEncoder.encode(message, StandardCharsets.UTF_8);
 	}

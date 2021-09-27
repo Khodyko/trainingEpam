@@ -19,7 +19,11 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-
+/**
+ * Go to second and last page of registration
+ * @author Vitamin_XO
+ *
+ */
 public class GoToRegistration2Page implements Command {
 	private static final ServiceProvider PROVIDER = ServiceProvider.getInstance();
 	private static final ItemService ITEM_SERVICE = PROVIDER.getItemService();
@@ -35,6 +39,7 @@ public class GoToRegistration2Page implements Command {
 		String writen2Name = null;
 	
 		try {
+			/**Getting of depo id written on the 1st registration page*/
 			chosenDepo = Integer.parseInt(request.getParameter("depo"));
 
 		} catch (NumberFormatException e) {
@@ -44,6 +49,7 @@ public class GoToRegistration2Page implements Command {
 			response.sendRedirect("Controller?commandToController=" + path + "&user_message=" + encodeUTF8(message));
 			return;
 		}
+		/**Getting of params written on the 1st registration page*/
 		writenName = request.getParameter("name");
 		writen2Name = request.getParameter("second_name");
 
@@ -61,6 +67,7 @@ public class GoToRegistration2Page implements Command {
 			return;
 		}
 		try {
+			/**Getting sectors list belong to depo*/
 			sectors = ITEM_SERVICE.getSectors(chosenDepo);
 		} catch (ServiceException e) {
 			path = "ERROR_PAGE";
@@ -69,14 +76,17 @@ public class GoToRegistration2Page implements Command {
 			response.sendRedirect("Controller?commandToController=" + path + "&user_message=" + encodeUTF8(message));
 			return;
 		}
+		/**Throw params into ui*/
 		request.setAttribute("depo", chosenDepo);
 		request.setAttribute("name", writenName);
 		request.setAttribute("second_name", writen2Name);
 		request.setAttribute("sectorsDb", sectors);
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher(path);
+		/**Go into registration2.jsp*/
 		requestDispatcher.forward(request, response);
 	}
 
+	/**Encoder*/
 	public String encodeUTF8(String message) {
 		return URLEncoder.encode(message, StandardCharsets.UTF_8);
 	}

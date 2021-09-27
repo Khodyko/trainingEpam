@@ -19,7 +19,11 @@ import jakarta.servlet.http.HttpSession;
 
 public class GoToStandartPreSearch implements Command {
 
-
+/**
+ * Plug before StandartSearch
+ * 
+ * @author Vitamin_XO
+ */
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String path = "/WEB-INF/jsp/standart_pre_search.jsp";		
