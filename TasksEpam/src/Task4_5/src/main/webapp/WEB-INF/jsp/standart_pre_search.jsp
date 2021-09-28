@@ -17,8 +17,6 @@
 <title>Zapchasti</title>
 <link rel="stylesheet" href="resources/css/property.css" type="text/css">
 <link rel="stylesheet" href="resources/css/header.css" type="text/css">
-<script src="/js/jquery.min.js"></script>
-<script src="/js/jquery.maskedinput.min.js"></script>
 
 <style type="text/css">
 .input {
@@ -65,7 +63,7 @@
 			</div>
 			<div class="columnconteiner2string" style="float: left;">
 				<a style="color: white; margin-left: 5px;">№ SAP</a>
-				<input type="text" name="nnSap" class="mask-phone form-control" value="" placeholder="Введите №SAP" />
+				<input type="text" name="nnSap" value="" placeholder="Введите №SAP" />
 			</div>
 			<div class="columnconteiner2string" style="float: left;">
 				<button style="color: #FFB74E; align-item: center; border-radius: 20px; height: 40px; margin-top: 18px;">

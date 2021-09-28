@@ -97,7 +97,7 @@ public class SecurityFilter implements Filter {
 			requestDispatcher.forward(req, resp);
 			return;
 		}
-		System.out.println(session);
+		
 		
 		
 		//User is not authorized

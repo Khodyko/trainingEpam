@@ -13,7 +13,6 @@ import javax.crypto.spec.PBEKeySpec;
 
 import by.mycloud_zapchast.www.dao.DAOException;
 import by.mycloud_zapchast.www.dao.DaoProvider;
-import by.mycloud_zapchast.www.dao.ItemDao;
 import by.mycloud_zapchast.www.dao.UserDao;
 import by.mycloud_zapchast.www.entity.BaseUserInfo;
 import by.mycloud_zapchast.www.entity.RegistrationInfo;

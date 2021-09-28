@@ -130,16 +130,17 @@ public class ItemConnectionPool {
 		}
 	
 
-	private void clearConnectionQueue() throws ConnectionPoolException {
+	public void closeItemConnectionPool() throws ConnectionPoolException {
 		try {
 			usedConQueue.addAll(freeConQueue);
 			freeConQueue.clear();
 			closeConnectionQueue(usedConQueue);
-
+			closeConnectionQueue(freeConQueue);
 		} catch (SQLException e) {
 			LOGGER.warn("Connection Pool: problems with closing, in moment of closing ConnectionQueue");
 			throw new ConnectionPoolException(USER_MSG_POOL_EXCP, e);
 		}
+	
 	}
 
 	public void closeConnectionQueue(BlockingQueue<Connection> queue) throws SQLException {

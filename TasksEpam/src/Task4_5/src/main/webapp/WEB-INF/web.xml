@@ -39,6 +39,14 @@
 	<servlet-name>Controller</servlet-name>
 	</filter-mapping>
 
+	<listener>
+	<listener-class>by.mycloud_zapchast.www.controller.CloseListener</listener-class>
+	</listener>
+	
+	
+
+
+
 	<servlet-mapping>
 		<servlet-name>Controller</servlet-name>
 		<url-pattern>/Controller</url-pattern>
