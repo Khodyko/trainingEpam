@@ -1,5 +1,10 @@
 package by.mycloud_zapchast.www.controller;
 
+/**
+ * 
+ * @author Vitamin_XO
+ *
+ */
 public enum CommandName {
 
 	GO_TO_STANDART_PRE_SEARCH, ERROR_PAGE, STANDART_SEARCH, GO_TO_DOCUMENTATION, GO_TO_REGISTRATION_1_PAGE,

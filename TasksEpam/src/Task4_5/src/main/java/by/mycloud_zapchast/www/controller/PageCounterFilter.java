@@ -20,7 +20,14 @@ import jakarta.servlet.ServletResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-
+/**
+ * realize pagination on standart_search.jsp and  application_search.jsp
+ * I have more good Idea to build pagination, but it was too late to realize
+ * We can not get all summa of page number, but only 10 pages(before and after current page), 
+ *   we can make it with getting of current page.
+ * @author Vitamin_XO
+ *
+ */
 public class PageCounterFilter implements Filter {
 	private static final String COMMAND_TO_CONTROLLER = "commandToController";
 	private static final ServiceProvider PROVIDER = ServiceProvider.getInstance();
@@ -39,14 +46,15 @@ public class PageCounterFilter implements Filter {
 			Integer currentPageNumber = 1;
 			Integer pagesMaxNum = 1;
 			String currentPageFromUI = request.getParameter("currentPage");
+			/**first time pagination returns null, next pagination returns current page*/
 			currentPageNumber = currentPageFromUI == null ? 1 : Integer.parseInt(currentPageFromUI);
+			/**searching params*/
 			String name = request.getParameter("itemName");
 			String nn = request.getParameter("nn");
 			String nnSap = request.getParameter("nnSap");
 			itemFromUI.setName(name);
 			itemFromUI.setNn(nn);
 			itemFromUI.setNnSap(nnSap);
-			System.out.println("filter: itemfromui : "+itemFromUI);
 			try {
 				pagesMaxNum = ITEM_SERVICE.getStandartSearchItemMaxNumber(itemFromUI);
 				pagesMaxNum = (pagesMaxNum % 30) > 0 ? pagesMaxNum / 30 + 1 : pagesMaxNum / 30;
@@ -59,7 +67,7 @@ public class PageCounterFilter implements Filter {
 				requestDispatcher.forward(request, response);
 				return;
 			}
-
+			/**Set params of pagination*/
 			request.setAttribute("currentPage", currentPageNumber);
 			request.setAttribute("pagesMaxNum", pagesMaxNum);
 			chain.doFilter(request, response);
@@ -75,7 +83,9 @@ public class PageCounterFilter implements Filter {
 			HttpSession session = ((HttpServletRequest) request).getSession(true);
 			User user=(User) session.getAttribute("user_session");
 			String currentPageFromUI = request.getParameter("currentPage");
+			/**first time pagination returns null, next pagination returns current page*/
 			currentPageNumber = currentPageFromUI == null ? 1 : Integer.parseInt(currentPageFromUI);
+			/**searching params*/
 			String name = request.getParameter("itemName");
 			String nn = request.getParameter("nn");
 			String nnSap = request.getParameter("nnSap");
@@ -97,7 +107,7 @@ public class PageCounterFilter implements Filter {
 				requestDispatcher.forward(request, response);
 				return;
 			}
-
+			/**Set params of pagination*/
 			request.setAttribute("currentPage", currentPageNumber);
 			request.setAttribute("pagesMaxNum", pagesMaxNum);
 			chain.doFilter(request, response);

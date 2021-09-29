@@ -7,7 +7,12 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-
+/**
+ * 
+ * 
+ * @author Vitamin_XO
+ *
+ */
 @WebServlet("/upload")
 @MultipartConfig
 public class Controller extends HttpServlet {
@@ -31,9 +36,9 @@ public class Controller extends HttpServlet {
 		response.setContentType("text/html");
 
 		String commandName = request.getParameter(COMMAND_TO_CONTROLLER);
-
+		/**Get command by name*/
 		Command command = PROVIDER.findCommand(commandName);
-
+		
 		command.execute(request, response);
 
 	}

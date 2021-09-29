@@ -57,12 +57,12 @@ input {
 			</div>
 			<div class="columnconteiner2string" style="float: left;">
 				<a style="color: white;">Номенклатурный №</a>
-				<input type="text" name="nn" value="" placeholder="Введите номер" />
+				<input type="text" data-mask="nn_mask" name="nn" value="" placeholder="Введите номер" />
 
 			</div>
 			<div class="columnconteiner2string" style="float: left;">
 				<a style="color: white;">№ SAP</a>
-				<input type="text" data-mask="nn_mask" name="nnSap" value="" placeholder="Введите №SAP" />
+				<input type="text"  name="nnSap" value="" placeholder="Введите №SAP" />
 			</div>
 
 			<div class="columnconteiner2string" style="float: left;">

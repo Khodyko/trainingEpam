@@ -20,7 +20,11 @@ import jakarta.servlet.ServletResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-
+/**
+ * Filter allows  to go to commands users with rights
+ * @author Vitamin_XO
+ *
+ */
 public class SecurityFilter implements Filter {
 	private static final Set<CommandName> withoutAuthorizationCommands=new HashSet<CommandName>();
 	private static final Map<CommandName, Set<UserRole>> allowedRoles=new HashMap<>();
@@ -28,6 +32,7 @@ public class SecurityFilter implements Filter {
 	private static final String COMMAND_TO_CONTROLLER = "commandToController";
 	private static final Logger LOGGER=LogManager.getLogger();
 	static {
+		
 		Set<UserRole> adminSet=new HashSet<>();
 		adminSet.add(UserRole.valueOf("ADMIN"));
 		Set<UserRole> employerSet=new HashSet<>();
@@ -68,6 +73,7 @@ public class SecurityFilter implements Filter {
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
+		
 		String path = "/WEB-INF/jsp/eror.jsp";
 		HttpServletRequest req= (HttpServletRequest)request;
 		HttpServletResponse resp=(HttpServletResponse)response;
@@ -78,7 +84,7 @@ public class SecurityFilter implements Filter {
 		String message=null;
 		Set<UserRole> allowedRolesForThisCommand=null;
 		
-		// Command is not valid
+		/**is Command valid?*/
 		if (reqCommandName == null) {
 			path= "/WEB-INF/jsp/error.jsp";
 			LOGGER.warn("SecurityFilter:  request command Name is null");
@@ -91,7 +97,7 @@ public class SecurityFilter implements Filter {
 		try {
 			commandName = CommandName.valueOf(reqCommandName.toUpperCase());
 		} catch (IllegalArgumentException e) { // logging
-			path=path = "/WEB-INF/jsp/error.jsp";
+			path= "/WEB-INF/jsp/error.jsp";
 			LOGGER.warn("SecurityFilter:  request command Name is not valid");
 			RequestDispatcher requestDispatcher=request.getRequestDispatcher(path);
 			requestDispatcher.forward(req, resp);
@@ -100,7 +106,7 @@ public class SecurityFilter implements Filter {
 		
 		
 		
-		//User is not authorized
+		/**User is not authorized*/
 		if( session==null || session.getAttribute("user_session")==null) {
 			if(withoutAuthorizationCommands.contains(commandName)) {
 				chain.doFilter(req, resp);
@@ -130,7 +136,7 @@ public class SecurityFilter implements Filter {
 				return;
 			}
 			
-			// user is authorized
+			/**user is authorized*/
 		allowedRolesForThisCommand=	allowedRoles.get(commandName);
 		if(allowedRolesForThisCommand.contains(userRole)) {
 			chain.doFilter(req, resp);

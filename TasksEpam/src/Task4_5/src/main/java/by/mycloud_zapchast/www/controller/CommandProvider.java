@@ -16,11 +16,17 @@ import by.mycloud_zapchast.www.controller.controllerCommandMethods.SignOut;
 import by.mycloud_zapchast.www.controller.controllerCommandMethods.StandartSearch;
 import by.mycloud_zapchast.www.controller.controllerCommandMethods.UnknownCommand;
 
+/**
+ * get the Command Class by Command name
+ * Unexpected commands checks in Security filter before calling  this class
+ * @author Vitamin_XO
+ *
+ */
 public class CommandProvider {
 	private Map<CommandName, Command> commands = new HashMap<>();
 
 	public CommandProvider() {
-		
+		/** Put all command names and their command*/
 		commands.put(CommandName.GO_TO_STANDART_PRE_SEARCH, new GoToStandartPreSearch());
 		commands.put(CommandName.STANDART_SEARCH, new StandartSearch());
 		commands.put(CommandName.GO_TO_APPLICATION_PRE_SEARCH, new GoToApplicationPreSearch());
@@ -33,15 +39,14 @@ public class CommandProvider {
 		commands.put(CommandName.AUTHORIZATION, new Authorization());
 		commands.put(CommandName.SIGN_OUT, new SignOut());
 		commands.put(CommandName.ERROR_PAGE, new UnknownCommand());
-			}
+	}
 
+	
 	public Command findCommand(String name) {
-		
 
 		CommandName commandName;
-		
+
 		commandName = CommandName.valueOf(name.toUpperCase());
-		
 
 		Command command = commands.get(commandName);
 		return command;
